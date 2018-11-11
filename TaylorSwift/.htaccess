@@ -1,0 +1,18 @@
+RewriteEngine On
+RewriteCond %{http_host} ^sem-cms.com [NC]
+RewriteRule ^(.*)$ http://www.sem-cms.com/$1 [L,R=301]
+
+<Files ~ “^.(htaccess|htpasswd)$”>
+deny from all
+</Files>
+
+RewriteRule  ^product.php$  Templete/default/Include/product\.php
+RewriteRule  ^about.php$  Templete/default/Include/about\.php
+RewriteRule  ^contact.php$  Templete/default/Include/contact\.php
+RewriteRule  ^download.php$  Templete/default/Include/download\.php
+RewriteRule  ^news.php$  Templete/default/Include/news\.php
+RewriteRule  ^info.php$  Templete/default/Include/info\.php
+RewriteRule  ^view.php$  Templete/default/Include/view\.php
+RewriteRule  ^search.php$  Templete/default/Include/search\.php
+
+ErrorDocument 404 /Error.html

@@ -7,6 +7,9 @@
         </title>
         <script src="../js/jquery-1.11.0.min.js"></script>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
+        <link rel="stylesheet" href="../css/animate.css"/>
+        <link rel="stylesheet" href="../fonts/font/fontCss.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/music.css"/>
         <script>
             $(document).ready(function(){
                 //子导航展开收缩
@@ -38,7 +41,7 @@
             body {
                 min-height: 95vh;
                 background:#FFFFFF url(../images/background2.jpg) no-repeat fixed center;
-                background-size:1280px 580px;
+                background-size:1280px 620px;
                 background-attachment:fixed;
             }
             li{
@@ -153,7 +156,7 @@
                         $catalog="美食";
                         break;
                     case 7:
-                        $catalog="育儿";
+                        $catalog="生活";
                         break;
                     case 8:
                         $catalog="星座";
@@ -187,7 +190,7 @@
                             <li>教育</li>
                             <li>体育</li>
                             <li>美食</li>
-                            <li>育儿</li>
+                            <li>生活</li>
                             <li>星座</li>
                         </ul>
                     </div>
@@ -214,6 +217,41 @@
                     else {
                       document.form1.submit();
                     }
+            }
+        </script>
+        <div class="music-bg" style="height: 100%;filter: blur(100px);transition:all 0.3s" id="music-bg">
+            <div class="music-mask">
+            </div>
+        </div>
+        <script type="text/javascript" src="../js/music.js"></script>
+        <script type="text/javascript">
+            window.onload = function(){
+                MC.music({
+                    hasAjax:false,
+                    left:'89%',
+                    bottom:'10%',
+                    musicChanged:function(ret){
+                        // alert(ret.url);
+                        // getMusic_buffer(ret.url);
+                        // return;
+                        var data = ret.data;
+                        var index = ret.index;
+                        var imageUrl = data[index].img_url;
+                        
+                        var music_bg = document.getElementById('music-bg');
+                        music_bg.style.background = 'url('+imageUrl+')no-repeat';
+                        music_bg.style.backgroundSize = 'cover';
+                        music_bg.style.backgroundPosition = 'center 30%';
+                    },
+            
+                    getMusicInfo:function(data){
+                        
+                    },
+            
+                    musicPlayByWebAudio:function(ret){
+                        
+                    },
+                });
             }
         </script>
     </body>

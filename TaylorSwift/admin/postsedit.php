@@ -100,7 +100,7 @@
                                         echo "美食";
                                         break;
                                     case 7:
-                                        echo "育儿";
+                                        echo "生活";
                                         break;
                                     case 8:
                                         echo "星座";

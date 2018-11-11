@@ -7,6 +7,9 @@
         </title>
         <script src="../js/jquery-1.11.0.min.js"></script>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
+        <link rel="stylesheet" href="../css/animate.css"/>
+        <link rel="stylesheet" href="../fonts/font/fontCss.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/music.css"/>
         <script>
             $(document).ready(function(){
                 //子导航展开收缩
@@ -248,6 +251,41 @@
                     else {
                       document.form1.submit();
                     }
+            }
+        </script>
+        <div class="music-bg" style="height: 100%;filter: blur(100px);transition:all 0.3s" id="music-bg">
+            <div class="music-mask">
+            </div>
+        </div>
+        <script type="text/javascript" src="../js/music.js"></script>
+        <script type="text/javascript">
+            window.onload = function(){
+                MC.music({
+                    hasAjax:false,
+                    left:'89%',
+                    bottom:'85%',
+                    musicChanged:function(ret){
+                        // alert(ret.url);
+                        // getMusic_buffer(ret.url);
+                        // return;
+                        var data = ret.data;
+                        var index = ret.index;
+                        var imageUrl = data[index].img_url;
+                        
+                        var music_bg = document.getElementById('music-bg');
+                        music_bg.style.background = 'url('+imageUrl+')no-repeat';
+                        music_bg.style.backgroundSize = 'cover';
+                        music_bg.style.backgroundPosition = 'center 30%';
+                    },
+            
+                    getMusicInfo:function(data){
+                        
+                    },
+            
+                    musicPlayByWebAudio:function(ret){
+                        
+                    },
+                });
             }
         </script>
     </body>

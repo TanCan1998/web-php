@@ -216,7 +216,7 @@
 	<iframe id="framePage" src="https://player.bilibili.com/player.html?aid=16276586&cid=26559512&page=6" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 	</div>
 
-	<div class="htmleaf-footer" style="text-align:center;margin-top:25px;">
+	<div class="htmleaf-footer" style="text-align:center;margin-top:65px;">
 		&copy这是TaylorTan制作的个人网站，内容主要是关于霉霉的一些东西，前端技术大部分来自互联网，希望对大家有所帮助。
 	</div>
 

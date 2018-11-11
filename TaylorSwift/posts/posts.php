@@ -93,7 +93,7 @@
             box-shadow:0px 0px 3px #FFFFFF inset,0px 0px 13px #FFFFFF;
         }
         .scrollItem:active{
-            color:#FFF68F;
+            color:#847A83;
             box-shadow:0px 0px 13px #FFFFFF inset,0px 0px 8px #FFFFFF;
         }
         .catalog ul,li{
@@ -138,7 +138,7 @@
 				<li><a href="posts.php?catalog=cata4" id="cata4">股票</a></li>
 				<li><a href="posts.php?catalog=cata5" id="cata5">体育</a></li>
 				<li><a href="posts.php?catalog=cata6" id="cata6">美食</a></li>
-				<li><a href="posts.php?catalog=cata7" id="cata7">育儿</a></li>
+				<li><a href="posts.php?catalog=cata7" id="cata7">生活</a></li>
 				<li><a href="posts.php?catalog=cata8" id="cata8">星座</a></li>
 				<li><a href="posts.php?catalog=cata9" id="cata9">其他</a></li>
 			</ul>

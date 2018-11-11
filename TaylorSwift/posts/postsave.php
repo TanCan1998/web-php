@@ -29,7 +29,7 @@
             case "美食":
                 $catalog=6;
                 break;
-            case "育儿":
+            case "生活":
                 $catalog=7;
                 break;
             case "星座":

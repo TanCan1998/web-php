@@ -11,7 +11,7 @@
             html{
                 font-family:"微软雅黑";
                 background:#FFFFFF url(../images/background1.jpg) no-repeat fixed center;
-                background-size:1280px 580px;
+                background-size:1280px 620px;
             }
     		ul{
                 list-style-type:none;
@@ -155,7 +155,7 @@
                                 echo "美食";
                                 break;
                             case 7:
-                                echo "育儿";
+                                echo "生活";
                                 break;
                             case 8:
                                 echo "星座";

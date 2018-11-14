@@ -39,9 +39,10 @@
                 font-family:"微软雅黑";
             }
             body {
+                transition:1s ease;
                 min-height: 95vh;
-                background:#FFFFFF url(../images/background2.jpg) no-repeat fixed center;
-                background-size:1280px 620px;
+                background:#FFFFFF url(../images/<?php echo rand(1,10); ?>.jpg) no-repeat fixed top;
+                background-size:100%;
                 background-attachment:fixed;
             }
             li{
@@ -49,72 +50,86 @@
             }
             label{
                 margin: 8px;
-                color:#8A2BE2;
+                color:#FFFFFF;
+                text-shadow:0px 0px 6px #000000;
             }
             select{
-                -webkit-appearance: none;
+                -webkit-appearance:none;
             }
             input,textarea,select{
                 margin:15px;
                 outline:none;
                 border: 1px solid #00FFFF;
-                box-shadow:2px 2px 5px #00FFFF;
+                box-shadow:0px 0px 10px #00FFFF;
+            }
+            input,textarea{
+                background:rgba(0,0,0,0.1);
+                color:#FFFFFF;
+                letter-spacing:2px;
+                font-weight:900;
+                font-size:15px;
+                text-shadow:0px 0px 6px #000000;
             }
             input:hover,textarea:hover,select:hover{ /*获取焦点改变颜色*/
-                box-shadow:2px 2px 8px #E61AA6;
+                box-shadow:0px 0px 10px #E61AA6;
                 border: 1px solid #E61AA6;
             }
             h1{
                 margin:20px;
-                color:#E61AA6;
+                color:#FFFFFF;
                 text-shadow:4px 4px 16px #00FFFF; 
                 font-size:40px;
             }
             .add{
+                background:rgba(0,0,0,0.1);
                 width:60%; 
                 padding:20px;
-                background-color:#FFFFFF;
                 border-radius:50px 50px 50px 50px;
-                box-shadow: 8px 8px  #E61AA6;
+                box-shadow:0px 0px 15px #00FFFF;
             }
             .back a:link,a:visited{
-                color:#8A2BE2;
+                color:#FFFFFF;
                 width:150px;
                 margin:25px;
                 padding:10px;
-                background-color:#FFEC8B;
+                background:rgba(0,0,0,0.1);
                 display:block;
                 font-weight:bold;
                 text-align:center;
                 text-decoration:none;
                 text-transform:uppercase;
-                border-radius:25px 25px 25px 25px;
-                box-shadow:0px 0px 2px 2px #840B9C;
+                border-radius:25px;
+                text-shadow:0px 0px 6px #000000;
+                box-shadow:0px 0px 2px 2px #00FFFF;
             }
             .back a:hover,a:active{
                 margin:26px;
                 padding:9px;
-                box-shadow:0px 0px 1px 2px #840B9C inset;
+                box-shadow:0px 0px 1px 2px #E61AA6 inset;
             }
             .button{
                 width: 15%;
                 padding: 10px;
-                background-color: #E61AA6;
+                background: none;
+                text-shadow:0px 0px 6px #000000;
                 border-radius: 20px;
                 margin: 0 auto;
                 margin-top: 10px;
                 color: white;
+                box-shadow:0px 0px 16px #00FFFF;
+                border:1px solid #00FFFF;
             }
             .button:hover {
-                background-color:#A61ABD;
+                box-shadow:0px 0px 16px #E61AA6;
+                border:1px solid #E61AA6;
             }
             .sewv{position: relative;width: 100px;display: inline-block;vertical-align: middle;}
             .sewvtop{width:100%;height:23px;border: 1px #00FFFF solid;cursor:pointer;border-radius:12px;overflow: hidden;box-shadow:2px 2px 8px #00FFFF;}
             .sewvtop:hover{border:1px #E61AA6 solid;box-shadow:2px 2px 8px #E61AA6;}
-            .sewvtop>span{float:left;width:70%;height:23px;white-space:pre;text-overflow:ellipsis;overflow:hidden;font-size: 12px;line-height:22px;color: #666;padding:0 5px;vertical-align: middle;}
+            .sewvtop>span{float:left;width:70%;height:23px;white-space:pre;text-overflow:ellipsis;overflow:hidden;font-size: 12px;line-height:22px;color:#FFFFFF;text-shadow:4px 4px 16px #00FFFF;padding:0 5px;vertical-align: middle;}
             .sewvtop>em{float:right;width: 20px;height: 20px;vertical-align: middle;}
             .sewvbm{width: 100%;position: absolute;left: 0;top: 25px;display:none;border: 1px #D9D9D9 solid;border-radius:2px;background:#ffffff;}
-            .sewvbm>li{white-space:pre;text-overflow:ellipsis;overflow:hidden;background: #ffffff;cursor:pointer;width:95%;font-size: 12px;color: #666;padding-left:5px;}
+            .sewvbm>li{white-space:pre;text-overflow:ellipsis;overflow:hidden;background:#ffffff;cursor:pointer;width:95%;font-size: 12px;color: #666666;padding-left:5px;}
             .sewvbm>li:hover{background: #00FFFF;color: #ffffff;}
             .lbaxztop{animation: rotatete 0.3s linear forwards;}
             .lbaxztop2{animation: rotatete2 0.3s linear forwards;}
@@ -170,7 +185,7 @@
             ?>
             <h1>发表新帖</h1>
             <div class="add">
-                <form name="form1" method="post" action="postsave.php">
+                <form name="form1" method="post" action="postsave.php?cata=<?php echo $_GET['catalog']; ?>">
                     <input type="hidden" id="catalog" name="catalog" value="<?php echo $catalog; ?>">
                     <input type="hidden" name="time" value = "<?php echo date('y-m-d H:i:s',time()); ?> "/>
                     <label for="title">Title</label>
@@ -209,10 +224,10 @@
                     var str1 = document.form1.title.value;
                     var obj2 = document.getElementById("body");
                     var str2 = document.form1.body.value;
-                    if (str1=="") {
+                    if (str1.replace(/\s/g, "")=="") {
                       alert("标题不能为空!");
                     }
-                    else if (str2=="") 
+                    else if (str2.replace(/\s/g, "")=="") 
                       alert("内容不能为空!");
                     else {
                       document.form1.submit();
@@ -237,21 +252,24 @@
                         var data = ret.data;
                         var index = ret.index;
                         var imageUrl = data[index].img_url;
-                        
                         var music_bg = document.getElementById('music-bg');
                         music_bg.style.background = 'url('+imageUrl+')no-repeat';
                         music_bg.style.backgroundSize = 'cover';
                         music_bg.style.backgroundPosition = 'center 30%';
                     },
-            
-                    getMusicInfo:function(data){
-                        
+                    getMusicInfo:function(data){    
                     },
-            
-                    musicPlayByWebAudio:function(ret){
-                        
+                    musicPlayByWebAudio:function(ret){    
                     },
                 });
+                var i=0;
+                var j=0;
+                function time(){
+                    j=i%10+1;
+                    document.body.style.backgroundImage="url(../images/"+j+".jpg)";
+                    i++; 
+                }
+                setInterval(time,12000);//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
             }
         </script>
     </body>

@@ -73,8 +73,8 @@
 		}
         #scroll {
             position:fixed;
-            top:370px; 
-            right:100px;
+            top:70%; 
+            right:7%;
         }
         .scrollItem {
             font-size:40px;
@@ -106,7 +106,6 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-
         }
         .catalog li{
             border: 0px;
@@ -143,7 +142,7 @@
 				<li><a href="posts.php?catalog=cata9" id="cata9">其他</a></li>
 			</ul>
 		</div>
-		<form name="form1" action="redict.php" method="post">
+		<form name="form1" action="redict.php?catalog=<?php echo $_GET['catalog']; ?>" method="post">
 			<div style="margin:30px">
 			<label for="title" style="color:#E61AA6;font-style:italic">搜索Title</label>
 			<input id="t" style="width:330px" name="title" class="awesomplete" list="mylist" />
@@ -153,9 +152,10 @@
 		<datalist id="mylist">
 			<?php
 				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-				$result = mysqli_query($db, "select * from i_posts");
+				$query=$dbb->prepare("select * from i_posts");
+				$query->execute();
 				$catalog=mb_substr($_GET['catalog'],4,1);
-				while ($row = mysqli_fetch_row($result)) {
+				while ($row = $query->fetch(PDO::FETCH_NUM)) {
 					if($catalog==$row[4]||$catalog=="1"){
 			?>
 			<option><?php echo $row[1] ?></option>
@@ -163,10 +163,10 @@
 		</datalist>  
 		<ul>
 			<?php
-				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-				$result = mysqli_query($db, "select * from i_posts");
+				$query=$dbb->prepare("select * from i_posts");
+				$query->execute();
 				$check_num=0;
-				while ($row = mysqli_fetch_row($result)) {
+				while ($row = $query->fetch(PDO::FETCH_NUM)) {
 					if(mb_substr($_GET['catalog'],4,1)==$row[4]||mb_substr($_GET['catalog'],4,1)=="1"){
 					echo "	
 					<li>		    

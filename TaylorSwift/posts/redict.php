@@ -10,8 +10,9 @@
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
             $title = $_POST['title'];
             $id=-1;
-            $result = mysqli_query($db, "select * from i_posts");
-            while ($row = mysqli_fetch_row($result)) {
+            $query=$dbb->prepare("select * from i_posts");
+            $query->execute();
+            while ($row = $query->fetch(PDO::FETCH_NUM)) {
                 if($row[1]==$title){
                     $id=$row[0];
                     break;
@@ -19,13 +20,13 @@
             }
             if($id!=-1){ ?>
                 <script>
-                    location.href='./showposts.php?id=<?php echo $id; ?>';
+                    location.href='./showposts.php?id=<?php echo $id; ?>&catalog=<?php echo $_GET['catalog']; ?>';
                 </script>
         <?php } 
             else{ ?>
                 <script>
                     alert("输入有误！");
-                    location.href='./posts.php';
+                    location.href='./posts.php?catalog=<?php echo $_GET['catalog']; ?>';
                 </script>
         <?php } ?>
     </body>

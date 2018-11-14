@@ -12,7 +12,7 @@
         		body {
                     min-height: 95vh;
         		    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-        		    background-color:#20CECE;
+        		    background-color:#E9E4CD;
                     background-attachment:fixed;
         		}
         		table,th,td{
@@ -21,7 +21,8 @@
                     text-align:center;
                 }
                 th{
-                    box-shadow:1px 1px 1px 1px #545454;
+                    color:#E9E4CD;
+                    box-shadow:1px 1px 1px 1px #5E5E5E;
                     padding:6px;
                     background-color:#99AA55;
                 }
@@ -40,14 +41,16 @@
                     background-color:#99AA55;
                 }
                 .button{
+                    color:#000000;
                     margin:30px;
                     padding:10px;
                     width:170px;
                     border-radius:20px;
                     background-color:#BDE61A;
-                    box-shadow:0px 0px 2px 2px #7A7A7A;
+                    box-shadow:2px 2px 2px 2px #7A7A7A;
                 }
                 .button:hover,.button:active{
+                    color:#E9E4CD;
                     background-color:#99AA55;
                 }
         	</style>
@@ -66,14 +69,15 @@
                         <th>操作</th>
                     </tr>
                 <tbody>
-                <?php  session_start();   //检测是否登录，若没登录则转向登录界面  
-                 if(!isset($_SESSION['userid'])){   
-                    header("Location:Login.html");  
-                    exit();  
+                <?php  
+                session_start();   //检测是否登录，若没登录则转向登录界面  
+                if(!isset($_SESSION['userid'])){   
+                    exit('非法访问!');  
                 }  
                 require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php'; 
-                $result = mysqli_query($db, "select * from i_posts"); 
-                while ($row = mysqli_fetch_row($result)) { ?>
+                $query=$dbb->prepare("select * from i_posts");
+                $query->execute(); 
+                while ($row = $query->fetch(PDO::FETCH_NUM)) { ?>
                     <tr>
                         <td>
                             <?php 

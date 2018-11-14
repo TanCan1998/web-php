@@ -39,9 +39,10 @@
                 font-family:"微软雅黑";
             }
             body {
+                transition:1s ease;
                 min-height: 95vh;
-                background:#FFFFFF url(../images/8.jpg) no-repeat fixed top;
-                background-size:1280px 830px;
+                background:#FFFFFF url(../images/<?php echo rand(1,10); ?>.jpg) no-repeat fixed top;
+                background-size:100%;
                 background-attachment:fixed;
             }
             li{
@@ -62,11 +63,12 @@
                 box-shadow:0px 0px 10px #00FFFF;
             }
             input,textarea{
-                background:rgba(0,0,0,0.5);
+                background:rgba(0,0,0,0.1);
                 color:#FFFFFF;
                 letter-spacing:2px;
                 font-weight:900;
                 font-size:15px;
+                text-shadow:0px 0px 6px #000000;
             }
             input:hover,textarea:hover,select:hover{ /*获取焦点改变颜色*/
                 box-shadow:0px 0px 10px #E61AA6;
@@ -79,7 +81,7 @@
                 font-size:40px;
             }
             .add{
-                background:rgba(0,0,0,0.5);
+                background:rgba(0,0,0,0.1);
                 width:60%; 
                 padding:20px;
                 border-radius:50px 50px 50px 50px;
@@ -90,7 +92,7 @@
                 width:150px;
                 margin:25px;
                 padding:10px;
-                background:rgba(0,0,0,0.5);
+                background:rgba(0,0,0,0.1);
                 display:block;
                 font-weight:bold;
                 text-align:center;
@@ -152,11 +154,17 @@
     <body>
         <div align="center">
             <?php  
+                session_start();  
+                //检测是否登录，若没登录则转向登录界面  
+                if(!isset($_SESSION['userid'])){  
+                    exit('非法访问!');
+                }
                 require_once $_SERVER['DOCUMENT_ROOT'].'../inc/db.php';
                 $id    = $_GET['id'];
-                $sql   = 'select * from i_posts where id = ' . $id;
-                $query = mysqli_query($db, $sql);
-                $post  = mysqli_fetch_object($query);
+                $query=$dbb->prepare("select * from i_posts where id = :id");
+                $query->bindValue(':id',$id,PDO::PARAM_INT);
+                $query->execute();
+                $post  = $query->fetchObject();
                 switch ($post->catalog) { 
                     case 2: 
                         $catalog="娱乐";
@@ -243,10 +251,10 @@
                     var str1 = document.form1.title.value;
                     var obj2 = document.getElementById("body");
                     var str2 = document.form1.body.value;
-                    if (str1=="") {
+                    if (str1.replace(/\s/g, "")=="") {
                       alert("标题不能为空!");
                     }
-                    else if (str2=="") 
+                    else if (str2.replace(/\s/g, "")=="") 
                       alert("内容不能为空!");
                     else {
                       document.form1.submit();
@@ -276,16 +284,20 @@
                         music_bg.style.background = 'url('+imageUrl+')no-repeat';
                         music_bg.style.backgroundSize = 'cover';
                         music_bg.style.backgroundPosition = 'center 30%';
-                    },
-            
-                    getMusicInfo:function(data){
-                        
-                    },
-            
-                    musicPlayByWebAudio:function(ret){
-                        
+                    },       
+                    getMusicInfo:function(data){                      
+                    },           
+                    musicPlayByWebAudio:function(ret){                      
                     },
                 });
+                var i=0;
+                var j=0;
+                function time(){
+                    j=i%10+1;
+                    document.body.style.backgroundImage="url(../images/"+j+".jpg)";
+                    i++; 
+                }
+                setInterval(time,12000);//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
             }
         </script>
     </body>

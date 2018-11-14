@@ -59,7 +59,7 @@
         function check(){
                 var obj = document.getElementById("password");
                 var str = document.form1.password.value;
-                if (str=="") {
+                if (str.replace(/\s/g, "")=="") {
                   alert("密码不能为空");
                 }
                 else if (str.indexOf(" ") >=0) 

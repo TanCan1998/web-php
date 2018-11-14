@@ -24,15 +24,15 @@
             musicType:              ['纯音乐','华语','欧美','霉霉','电音','韩国','爱乐之城','网络歌曲'],         //音乐的类型  （需要随机显示）这是结合我自己后台数据库使用的 如果不是用ajax请求是不会显示这个类型的;
             source:                 [
                                         {
-                                            name:'New Romantics',
+                                            name:'Call It What You Want',
                                             singer:'Taylor Swift',
-                                            url:'../../bgm/New Romantics.mp3',
-                                            img_url:'../../bgm/1989.jpg',
+                                            url:'../../bgm/Call It What You Want.mp3',
+                                            img_url:'../../bgm/Reputation.jpg'
                                         },{
                                             name:'Clean',
                                             singer:'Taylor Swift',
                                             url:'../../bgm/Clean.mp3',
-                                            img_url:'../../bgm/1989.jpg',
+                                            img_url:'../../bgm/1989.jpg'
                                         },{
                                             name:'I Did Something Bad',
                                             singer:'Taylor Swift',
@@ -48,6 +48,16 @@
                                             singer:'Taylor Swift',
                                             url:'../../bgm/Gorgeous.mp3',
                                             img_url:'../../bgm/Reputation.jpg'
+                                        },{
+                                            name:'...Ready For It (BloodPop®)',
+                                            singer:'Taylor Swift',
+                                            url:'../../bgm/...Ready For It (BloodPop®).mp3',
+                                            img_url:'../../bgm/ReadyForIt.jpg'
+                                        },{
+                                            name:'New Romantics',
+                                            singer:'Taylor Swift',
+                                            url:'../../bgm/New Romantics.mp3',
+                                            img_url:'../../bgm/1989.jpg'
                                         }
                                     ],
 

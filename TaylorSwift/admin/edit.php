@@ -50,32 +50,32 @@
 				session_start();  
 		   		//检测是否登录，若没登录则转向登录界面  
 				if(!isset($_SESSION['userid'])){  
-		    		header("Location:Login.html"); 
-		    		exit(); 
+		    		exit('非法访问!');
 				} 
 				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
 				
 				$id    = $_GET['id'];
-				$sql   = 'select * from i_news where id = ' . $id;
-				$query = mysqli_query($db, $sql);
-				$post  = mysqli_fetch_object($query);
+                $query=$dbb->prepare("select * from i_news where id = :id");
+                $query->bindValue(':id',$id,PDO::PARAM_INT);
+                $query->execute();
+                $news  = $query->fetchObject();
 			?>
 			<h1>编辑新闻</h1>
 
-			<form action="update.php" method="post">
-				<input type="hidden" name="id" value = "<?php echo $post->id; ?>"/>
+			<form name="form1" action="update.php" method="post">
+				<input type="hidden" name="id" value = "<?php echo $news->id; ?>"/>
 				<label for="time">Time</label>
-				<input type="text" name="time" id="timein" style="outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A" value="<?php echo date('Y-m-d H:i',strtotime($post->time)); ?>"/>
+				<input type="text" name="time" id="timein" style="outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A" value="<?php echo date('Y-m-d H:i',strtotime($news->time)); ?>"/>
                 <div class="jsbox"></div>
 				<div class="form-group floating-control-group">
 					<label for="txtFloatingUsername">Title</label>
-					<input type="text" class="form-control" id="txtFloatingUsername" name="title" value="<?php echo $post->title; ?>" />
+					<input type="text" class="form-control" id="txtFloatingUsername" name="title" value="<?php echo $news->title; ?>" />
 					</div>
 				<div class="form-group floating-control-group">
 					<label for="txtFloatingComments">Body</label>
-					<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none"><?php echo $post->body; ?></textarea>
+					<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none"><?php echo $news->body; ?></textarea>
 				</div>
-				<button type="submit" class="btn btn-primary"> 提 交 </button>
+				<button type="submit" class="btn btn-primary" onclick="check()"> 提 交 </button>
 			</form>
 			<a href="./newsedit.php">取消</a>
 		</div>

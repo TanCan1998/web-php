@@ -6,12 +6,16 @@
 	<style type="text/css">
 		html{
           	font-family:"微软雅黑";
+          	min-height: 95vh;
+            background:#FFFFFF url(../images/background<?php echo rand(3,6);?>.gif) no-repeat fixed center;
+            background-size:100%;
+            background-attachment:fixed;
         }
-		body {
+		/*body {
 		  min-height: 95vh;
 		  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 		  background-color:#20CECE;
-		}
+		}*/
 		ul{
 			list-style-type:none;
 			margin:0;
@@ -46,8 +50,7 @@
 		session_start();  
    		//检测是否登录，若没登录则转向登录界面  
 		if(!isset($_SESSION['userid'])){  
-    		header("Location:Login.html"); 
-    		exit(); 
+    		exit('非法访问!');
 		} 
 		$userid = $_SESSION['userid'];  
 		$username = $_SESSION['username'];  

@@ -40,17 +40,16 @@
 	<div align="center">
 		<div class="body">
 			<?php
-			session_start();  
-	   		//检测是否登录，若没登录则转向登录界面  
-			if(!isset($_SESSION['userid'])){  
-	    		header("Location:Login.html"); 
-	    		exit(); 
-			} 
-			require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
+				session_start();  
+		   		//检测是否登录，若没登录则转向登录界面  
+				if(!isset($_SESSION['userid'])){  
+		    		exit('非法访问!');
+				}
+				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
 			?>
 			<h1>新增新闻</h1>
 
-			<form action="save.php" method="post">
+			<form name="form1" action="save.php" method="post">
 				<label for="time">Time</label>
 				<input type="text" name="time" id="timein" value="<?php echo date('Y-m-d H:i',time()); ?>" style="outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A"/>
                 <div class="jsbox"></div>
@@ -62,7 +61,7 @@
 				<label for="txtFloatingComments">Body</label>
 				<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none"></textarea>
 				</div>
-				<button type="submit" class="btn btn-primary"> 提 交 </button>
+				<button type="submit" class="btn btn-primary" onclick="check()"> 提 交 </button>
 			</form>
 			<a href="./newsedit.php">取消</a>
 		</div>
@@ -79,5 +78,21 @@
 		//默认点击显示时间
     	$("#timein").shijian()
 	</script>
+	<script>
+        function check(){
+            var obj1 = document.getElementById("txtFloatingUsername");
+            var str1 = document.form1.txtFloatingUsername.value;
+            var obj2 = document.getElementById("txtFloatingComments");
+            var str2 = document.form1.txtFloatingComments.value;
+            if (str1.replace(/\s/g, "")=="") {
+              	alert("标题不能为空!");
+            }
+            else if (.replace(/\s/g, "")str2=="") 
+              	alert("内容不能为空!");
+            else {
+              	document.form1.submit();
+            }
+        }
+    </script>
 </body>
 </html>

@@ -56,8 +56,8 @@
 		}
 		#scroll {
             position:fixed;
-            top:370px; 
-            right:100px;
+            top:70%; 
+            right:7%;
         }
         .scrollItem {
         	font-size:40px;
@@ -85,9 +85,11 @@
 		require_once $_SERVER['DOCUMENT_ROOT'].'../inc/db.php';
 		require_once $_SERVER['DOCUMENT_ROOT'].'../inc/scroll.php';
 		$id    = $_GET['id'];
-		$sql   = 'select * from i_news where id = ' . $id;
-		$query = mysqli_query($db, $sql);
-		$news  = mysqli_fetch_object($query);
+		$sql   = 'select * from i_news where id = :id';
+		$query = $dbb->prepare($sql);
+		$query->bindValue(':id',$id,PDO::PARAM_INT);
+		$query->execute();
+		$news  = $query->fetchObject();
 	?>
 	<div align="center">
 		<h1><?php echo $news->title; ?></h1>
@@ -95,7 +97,7 @@
 				<p><?php echo date('Y-m-d H:i',strtotime($news->time)); ?></p>
 			</div>
 			<div class="body">
-				<p><?php echo $news->body; ?></p>
+				<div style="text-align:left;text-indent:2em"><?php echo $news->body; ?></div>
 			</div>
 			<br>
 		<a href="news.php">返回</a>
@@ -103,15 +105,15 @@
 		<?php 
 			$last=$id-1;
 			$next=$id+1;
-			$sql_check='select * from i_news where id = ' . $last;
-			$query_check=mysqli_query($db, $sql_check);
-			$row=mysqli_fetch_row($query_check);
+			$query->bindValue(':id',$last,PDO::PARAM_INT);
+			$query->execute();
+			$row=$query->fetch(PDO::FETCH_NUM);
 			if($row!=null){
 				echo "<a href=\"shownews.php?id={$last}\" title=\"$row[1]\">上一篇</a>";
 			}
-			$sql_check='select * from i_news where id = ' . $next;
-			$query_check=mysqli_query($db, $sql_check);
-			$row=mysqli_fetch_row($query_check);
+			$query->bindValue(':id',$next,PDO::PARAM_INT);
+			$query->execute();
+			$row=$query->fetch(PDO::FETCH_NUM);
 			if($row!=null){
 				echo "<a href=\"shownews.php?id={$next}\" title=\"$row[1]\">下一篇</a>";
 			}

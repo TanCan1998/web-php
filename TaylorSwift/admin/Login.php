@@ -38,9 +38,7 @@
 //登录
 
 if (!($_GET['action']=="logout"||isset($_POST['submit1']))) {
-
     exit('非法访问!');
-
 }
 if(isset($_POST['submit1'])){
 
@@ -54,8 +52,11 @@ require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
 
 //检测用户名及密码是否正确
 
-$check_query = mysqli_query($db,"select userid from i_admin where username='$username' and password='$password' limit 1");
-if ($row = mysqli_fetch_row($check_query)) {
+$check_query = $dbb->prepare("select userid from i_admin where username= :username and password= :password limit 1");
+$check_query->bindValue(':username',$username,PDO::PARAM_STR);
+$check_query->bindValue(':password',$password,PDO::PARAM_STR);
+$check_query->execute();
+if ($row = $check_query->fetch(PDO::FETCH_NUM)) {
 
     //登录成功
 
@@ -88,7 +89,7 @@ if ($_GET['action'] == "logout") {
 
     unset($_SESSION['username']);
 
-    echo '<div align="center">注销登录成功！点击此处 <a href="Login.html">登录</a><br>';
+    echo '<div align="center">注销成功！点击此处 <a href="Login.html">登录</a><br>';
 
     echo '点击此处返回<a href="../index.php">首页</a></div>';
 

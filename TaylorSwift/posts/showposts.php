@@ -11,7 +11,7 @@
             html{
                 font-family:"微软雅黑";
                 background:#FFFFFF url(../images/background1.jpg) no-repeat fixed center;
-                background-size:1280px 620px;
+                background-size:100%;
             }
     		ul{
                 list-style-type:none;
@@ -99,8 +99,8 @@
             }
             #scroll {
                 position:fixed;
-                top:370px; 
-                right:100px;
+                top:70%; 
+                right:7%;
             }
             .scrollItem {
                 font-size:40px;
@@ -129,8 +129,10 @@
             require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php'; 
             require_once $_SERVER['DOCUMENT_ROOT'].'../inc/scroll.php';
             $id = $_GET['id'];
-            $result = mysqli_query($db, "select * from i_posts where id = " . $id);
-            $row = mysqli_fetch_row($result);
+            $query=$dbb->prepare("select * from i_posts where id = :id");
+            $query->bindValue(':id',$id,PDO::PARAM_INT);
+            $query->execute();
+            $row = $query->fetch(PDO::FETCH_NUM);
         ?>
         <div align="center">
             <div class="post">
@@ -167,13 +169,15 @@
                     ?>
                 </p>
                 <span><?php echo date('Y-m-d H:i',strtotime($row[3])); ?></span>
-                <p style="letter-spacing:2px;font-weight:300"><?php echo $row[2] ?></p>
+                <div style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $row[2] ?></div>
             </div>
             <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
             <ul>
                 <?php
-                    $result = mysqli_query($db, "select * from i_comments where post_id = " . $id);
-                    while($row = mysqli_fetch_row($result)){
+                    $query = $dbb->prepare("select * from i_comments where post_id = :post_id");
+                    $query->bindValue(':post_id',$id,PDO::PARAM_INT);
+                    $query->execute();
+                    while($row = $query->fetch(PDO::FETCH_NUM)){
                 ?>
                 <div class="comment" style="box-shadow: 8px 8px  rgb(<?php echo rand(0,255).','.rand(0,255).','.rand(0,255); ?>)">
                     <li>
@@ -187,7 +191,7 @@
             </ul>
             <div class="add" id="add">
                 <h2 style="color:#E61AA6;text-shadow:1px 1px 2px #00FFFF">添加评论</h2>
-                <form name="form1" method="post" action="commentupdate.php">
+                <form name="form1" method="post" action="commentupdate.php?catalog=<?php echo $_GET['catalog']; ?>">
                     <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
                     <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
                     <label for="title">Title</label>

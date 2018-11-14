@@ -55,8 +55,9 @@
 		<ul>
 			<?php
 				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-				$result = mysqli_query($db, "select * from i_news");
-				while ($row = mysqli_fetch_row($result)) {
+				$query = $dbb->prepare("select * from i_news");
+				$query->execute();
+				while ($row = $query->fetch(PDO::FETCH_NUM)) {
 			?>
 		    <li><a href="shownews.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
 		    	<?php echo $row[1];?>

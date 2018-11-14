@@ -10,7 +10,7 @@
 		body {
 		  min-height: 95vh;
 		  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-		  background-color:#20CECE;
+		  background-color:#E9E4CD;
 		  background-attachment:fixed;
 		}
 		ul{
@@ -40,7 +40,7 @@
 			float: left;
 		}
 		.back a{
-			color:#11EEEE;
+			color:#E9E4CD;
 			background-color:#99AA55;
 		}
 		.button 
@@ -54,12 +54,12 @@
 		session_start();  
    		//检测是否登录，若没登录则转向登录界面  
 		if(!isset($_SESSION['userid'])){  
-    		header("Location:Login.html"); 
-    		exit(); 
+    		exit('非法访问!');
 		} 
 		require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
-		$result = mysqli_query($db, "select * from i_news");
-		while ($row = mysqli_fetch_row($result)) {
+		$query=$dbb->prepare("select * from i_news");
+        $query->execute(); 
+		while ($row = $query->fetch(PDO::FETCH_NUM)) {
 	?>
 		<li><a href="edit.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
 			<?php echo '@',$row[1];?>

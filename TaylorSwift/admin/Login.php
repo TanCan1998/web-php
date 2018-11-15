@@ -37,6 +37,7 @@
     	<?php
 
 //登录
+session_start();
 
 if (!($_GET['action']=="logout"||isset($_POST['submit1']))) {
     exit('非法访问!');
@@ -61,8 +62,6 @@ if ($row = $check_query->fetch(PDO::FETCH_NUM)) {
 
     //登录成功
 
-    session_start();
-
     $_SESSION['username'] = $username;
 
     $_SESSION['userid'] = $row[0];
@@ -84,9 +83,7 @@ if ($row = $check_query->fetch(PDO::FETCH_NUM)) {
 
 if ($_GET['action'] == "logout") {
 
-	session_start();
-
-    unset($_SESSION['userid']);
+	unset($_SESSION['userid']);
 
     unset($_SESSION['username']);
 

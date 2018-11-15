@@ -45,7 +45,7 @@
                 <div class="login-top" style="color:#20B6B1">
                     管理员登录
                 </div>
-                <form name="form1" method="post" action="Login.php?action=''">
+                <form name="form1" method="post" action="Login.php?action=1">
                     <input type="hidden" name="submit1"/>
                     <div class="login-center clearfix">
                         <div class="login-center-img">

@@ -12,14 +12,37 @@
         <style>
             html{
                 font-family:"微软雅黑";
+                background:#FFFFFF url(../images/login.png) no-repeat fixed top;
+                background-size:100%;
+                background-attachment:fixed;
             }
             *{margin: 0px;padding: 0px;}
+            .login{
+                background-color:rgba(0,205,205,0.2);
+            }
+            input{
+                background:none;
+            }
+            .button{
+                background-color:#58CCC1;
+                font-size:15px;
+            }
+            .button:hover{
+                background-color:#20B6B1;
+            }
         </style>
     </head>
     <body>
+        <?php
+            session_start();  
+            //检测是否登录 
+            if(isset($_SESSION['userid'])){  
+                header("location:./admin.php");
+            }
+        ?>
         <div id="particles-js">
             <div class="login">
-                <div class="login-top">
+                <div class="login-top" style="color:#20B6B1">
                     管理员登录
                 </div>
                 <form name="form1" method="post" action="Login.php?action=''">
@@ -48,13 +71,12 @@
                     </div>
                 </form>
                 <div class="button" name="submit" onclick="check()">
-                    登陆
+                    登 陆
                 </div>
             </div>
             <div class="sk-rotating-plane">
             </div>
         </div>
-        <script type="text/javascript" src="../js/canvas-nest.min.js"></script>
         <script>
         function check(){
                 var obj = document.getElementById("password");

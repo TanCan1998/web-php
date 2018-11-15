@@ -1,3 +1,10 @@
+<?php 
+    session_start();  
+    //检测是否登录  
+    if(!isset($_SESSION['userid'])){  
+        exit('非法访问!');
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,8 +37,12 @@
                     $(this).parent("ul").hide();
                     $(this).parents(".sewv").children(".sewvtop").find("em").addClass("lbaxztop2");
                 });
-                
             });
+            function OnInput (event){
+                var x = event.which || event.keyCode;
+                if(x==13)
+                    event.target.value=event.target.value.replace("\n","")+"<p></p>";
+            };
         </script>
         <style type="text/css">
             *{margin: 0;padding: 0;}
@@ -153,12 +164,7 @@
     </head>
     <body>
         <div align="center">
-            <?php  
-                session_start();  
-                //检测是否登录，若没登录则转向登录界面  
-                if(!isset($_SESSION['userid'])){  
-                    exit('非法访问!');
-                }
+            <?php
                 require_once $_SERVER['DOCUMENT_ROOT'].'../inc/db.php';
                 $id    = $_GET['id'];
                 $query=$dbb->prepare("select * from i_posts where id = :id");
@@ -197,6 +203,7 @@
             </h1>
             <div class="add">
                 <form name="form1" method="post" action="postupdate.php?id=<?php echo $id; ?>">
+                    <input type='text' style='display:none'/>
                     <input type="hidden" id="catalog" name="catalog" value="<?php echo $catalog; ?>">
                     <label for="title">
                         title
@@ -206,7 +213,7 @@
                     <label for="body">
                         Body
                     </label>
-                    <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden"><?php echo $post->body; ?></textarea>
+                    <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden" onkeydown="OnInput (event)"><?php echo $post->body; ?></textarea>
                     <br/>
                     <label for="catalog">
                         catalog
@@ -237,7 +244,7 @@
             </div>
         </div>
         <div class="back" align="center">
-            <a href="javascript:history.back(-1)">
+            <a href="./postslist.php">
                 返回
             </a>
         </div>
@@ -293,7 +300,7 @@
                 var i=0;
                 var j=0;
                 function time(){
-                    j=i%10+1;
+                    j=i%11+1;
                     document.body.style.backgroundImage="url(../images/"+j+".jpg)";
                     i++; 
                 }

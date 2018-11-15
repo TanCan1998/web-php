@@ -10,7 +10,7 @@
             body { width:100%; height:100%;overflow-x:hidden; }
             html{
                 font-family:"微软雅黑";
-                background:#FFFFFF url(../images/background1.jpg) no-repeat fixed center;
+                background:#FFFFFF url(../images/background1.jpg) no-repeat fixed top;
                 background-size:100%;
             }
     		ul{
@@ -69,6 +69,7 @@
                 box-shadow: 8px 8px  #E61AA6;
             }
     		.back a:link,a:visited{
+                transition:0.5s ease;
     			color:#8A2BE2;
     			width:140px;
                 margin:26px;
@@ -103,6 +104,7 @@
                 right:7%;
             }
             .scrollItem {
+                transition:0.2s ease;
                 font-size:40px;
                 width:50px; 
                 color:#A61ABD;
@@ -174,7 +176,7 @@
             <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
             <ul>
                 <?php
-                    $query = $dbb->prepare("select * from i_comments where post_id = :post_id");
+                    $query = $dbb->prepare("select * from i_comments where post_id = :post_id order by id");
                     $query->bindValue(':post_id',$id,PDO::PARAM_INT);
                     $query->execute();
                     while($row = $query->fetch(PDO::FETCH_NUM)){
@@ -194,6 +196,7 @@
                 <form name="form1" method="post" action="commentupdate.php?catalog=<?php echo $_GET['catalog']; ?>">
                     <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
                     <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
+                    <input type='text' style='display:none'/>
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" style="width:60%;padding:4px;text-align:center;border-radius:15px;"/>
                     <br>

@@ -20,6 +20,7 @@
 			overflow:hidden;
 		}
 		a:link,a:visited{
+			transition:0.2s ease;
 			display:block;
 			width:320px;
 			color:#FFFFFF;
@@ -52,16 +53,16 @@
 	<ul>
 	<?php 
 		session_start();  
-   		//检测是否登录，若没登录则转向登录界面  
+   		//检测是否登录
 		if(!isset($_SESSION['userid'])){  
     		exit('非法访问!');
 		} 
 		require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
-		$query=$dbb->prepare("select * from i_news");
+		$query=$dbb->prepare("select * from i_news order by id");
         $query->execute(); 
 		while ($row = $query->fetch(PDO::FETCH_NUM)) {
 	?>
-		<li><a href="edit.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
+		<li><a href="editnews.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
 			<?php echo '@',$row[1];?>
 	    </a></li>
 	<?php }?>
@@ -69,7 +70,7 @@
 	</div>
 	<div class="back" align="center">
 		<a href="./admin.php">返回</a>
-		<a href="./new.php">新增</a>
+		<a href="./addnews.php">新增</a>
 	</div>
 
 </body>

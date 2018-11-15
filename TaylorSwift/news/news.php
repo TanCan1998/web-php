@@ -27,6 +27,7 @@
 			overflow:hidden;
 		}
 		a:link,a:visited{
+			transition:0.2s ease;
 			display:block;
 			width:320px;
 			color:#FFFFFF;
@@ -55,11 +56,11 @@
 		<ul>
 			<?php
 				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-				$query = $dbb->prepare("select * from i_news");
+				$query = $dbb->prepare("select * from i_news order by id");
 				$query->execute();
 				while ($row = $query->fetch(PDO::FETCH_NUM)) {
 			?>
-		    <li><a href="shownews.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
+		    <li><a href="shownews.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
 		    	<?php echo $row[1];?>
 		    </a></li>
 			<?php }?>

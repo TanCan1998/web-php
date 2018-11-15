@@ -17,12 +17,12 @@
     <body>
         <?php
             session_start();  
-            //检测是否登录，若没登录则转向登录界面  
+            //检测是否登录
             if(!isset($_SESSION['userid'])){  
                 exit('非法访问!');
             } 
             require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-            $title = htmlentities($_POST['title']);
+            $title = str_ireplace(" ", "", htmlentities($_POST['title']));
             $time = $_POST['time'];
             $body= preg_replace('/<\/?(html|head|meta|link|base|body|title|style|script|form|iframe|frame|frameset)[^><]*>/i','',str_replace(array("\r\n", "\r", "\n"),'', $_POST['body']));
             $query=$dbb->prepare("INSERT INTO i_news (title, body, time)VALUES(:title,:body,:time)");
@@ -36,7 +36,7 @@
                 echo '<div align="center">
                 <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #00FFFF;font-size:60px;font-weight:900">☺新增成功☺</p>
                 </div>';
-                echo '<script language="JavaScript">setTimeout(function(){location.href="./newsedit.php";},"2000");</script>';
+                echo '<script language="JavaScript">setTimeout(function(){location.href="./newslist.php";},"2000");</script>';
             };
         ?>
     </body>

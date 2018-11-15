@@ -347,22 +347,22 @@
 
         // };
 
-        musicValue._keyPress = function(){
-            document.onkeydown = function(e) {
-                var keycode = e.which || window.event.keyCode;
-                if(keycode == 32 && !$('input').is(':focus')){
-                    musicValue._playPause();
-                }
+        // musicValue._keyPress = function(){
+        //     document.onkeydown = function(e) {
+        //         var keycode = e.which || window.event.keyCode;
+        //         if(keycode == 32 && !$('input').is(':focus')){
+        //             musicValue._playPause();
+        //         }
 
-                if(keycode == 39 || keycode == 40 && !$('input').is(':focus')){
-                    musicValue._playNext();
-                }
+        //         if(keycode == 39 || keycode == 40 && !$('input').is(':focus')){
+        //             musicValue._playNext();
+        //         }
 
-                if(keycode == 37 || keycode == 38 && !$('input').is(':focus')){
-                    musicValue._playPrev();
-                }
-            }
-        };
+        //         if(keycode == 37 || keycode == 38 && !$('input').is(':focus')){
+        //             musicValue._playPrev();
+        //         }
+        //     }
+        // };
 
         //自定义选择音乐类型事件 
         musicValue._selectByClass = function () {
@@ -456,7 +456,7 @@
             musicValue._onplay();
 
             //按键事件  控制音乐播放
-            musicValue._keyPress();
+            // musicValue._keyPress();
         };
 
         //给dom装填数据

@@ -18,8 +18,8 @@
         	exit("非法访问！"); 
         }
         require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-        $title = htmlentities($_POST['title']);
-        $body= preg_replace('/<\/?(html|head|meta|link|base|body|title|style|script|form|iframe|frame|frameset)[^><]*>/i','',str_replace(array("\r\n", "\r", "\n"),'', $_POST['body']));
+        $title = str_ireplace(" ", "", htmlentities($_POST['title']));
+        $body= preg_replace('/<\/?(html|head|meta|link|base|body|title|style|script|form|iframe|frame|frameset)[^><]*>/i','',str_replace(array("\r\n", "\r", "\n", " "),'', $_POST['body']));
         $time = $_POST['time'];
         switch ($_POST['catalog']) {
             case "娱乐":

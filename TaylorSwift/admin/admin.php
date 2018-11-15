@@ -26,6 +26,7 @@
 			float:center;
 		}
 		a:link,a:visited{
+			transition:0.2s ease;
 			display:block;
 			width:120px;
 			font-weight:bold;
@@ -48,7 +49,7 @@
 <body>
 	<?php 
 		session_start();  
-   		//检测是否登录，若没登录则转向登录界面  
+   		//检测是否登录  
 		if(!isset($_SESSION['userid'])){  
     		exit('非法访问!');
 		} 
@@ -57,13 +58,13 @@
 	?>
 	<div align="center">
 		<ul>
-			<li><a title="首页" href="../index.php">Home</a></li>
-			<li><a title="编辑新闻" href="newsedit.php">News</a></li>
-			<li><a title="编辑帖子" href="postsedit.php">Posts</a></li>
+			<li><a title="首页" href="../">Home</a></li>
+			<li><a title="编辑新闻" href="newslist.php">News</a></li>
+			<li><a title="编辑帖子" href="postslist.php">Posts</a></li>
 			<li><a title="审核评论" href="#about">Comments</a></li>
 		</ul>
-		<h1><?php echo '用户名：',$username; ?></h1>
-		<h2><?php echo '用户ID：',$userid; ?></h2>
+		<h1><?php echo '管理员：',$username; ?></h1>
+		<h2><?php echo 'ID：',$userid; ?></h2>
 		<p><?php echo '<a href="login.php?action=logout">注销</a>';  ?></p>
 	</div>
 

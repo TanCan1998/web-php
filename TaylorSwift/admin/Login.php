@@ -16,6 +16,7 @@
 		  background-color:#33CC99;
 		}
 		a:link,a:visited{
+            transition:0.2s ease;
 			display:block;
 			width:320px;
 			font-weight:bold;
@@ -89,7 +90,7 @@ if ($_GET['action'] == "logout") {
 
     unset($_SESSION['username']);
 
-    echo '<div align="center">注销成功！点击此处 <a href="Login.html">登录</a><br>';
+    echo '<div align="center">注销成功！点击此处 <a href="LoginFrame.php">登录</a><br>';
 
     echo '点击此处返回<a href="../index.php">首页</a></div>';
 

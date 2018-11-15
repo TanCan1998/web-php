@@ -15,13 +15,13 @@
 <body>
 	<?php 
         session_start();  
-        //检测是否登录，若没登录则转向登录界面  
+        //检测是否登录
         if(!isset($_SESSION['userid'])){  
             exit('非法访问!');
         } 
 		require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
         $id=$_GET['id'];
-        $title = htmlentities($_POST['title']);
+        $title = str_ireplace(" ", "", htmlentities($_POST['title']));
         $body= preg_replace('/<\/?(html|head|meta|link|base|body|title|style|script|form|iframe|frame|frameset)[^><]*>/i','',str_replace(array("\r\n", "\r", "\n"),'', $_POST['body']));
         $catalog=$_POST['catalog'];
         switch ($_POST['catalog']) {
@@ -62,7 +62,7 @@
             echo '<div align="center">
                 <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61AA6;font-size:60px;font-weight:900">☺更新成功☺</p>
             </div>';
-            echo '<script language="JavaScript">setTimeout(function(){location.href="./postsedit.php";},"2000");</script>';
+            echo '<script language="JavaScript">setTimeout(function(){location.href="./postslist.php";},"2000");</script>';
         };
 	?>
 </body>

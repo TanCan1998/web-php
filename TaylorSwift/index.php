@@ -132,7 +132,7 @@
 			<h1>TAYLOR SWIFT <span>Come morning light.You and I'll be safe and sound.</span></h1>
 			<div class="htmleaf-links">
 				<a class="htmleaf-icon icon-htmleaf-home-outline" href="#wrapper<?php echo rand(1,2); ?>" title="Home"><span> Home</span></a>
-				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="./admin/admin.php" title="Management" target="_blank"><span> Login</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="./admin/LoginFrame.php" title="Management" target="_blank"><span> Login</span></a>
 			</div>
 		</div>
 	</div>

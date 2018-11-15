@@ -21,6 +21,7 @@
             font-size:40px;
         }
 		a:link,a:visited{
+			transition:0.2s ease;
 			display:block;
 			width:170px;
 			color:#FFFFFF;
@@ -60,6 +61,7 @@
             right:7%;
         }
         .scrollItem {
+        	transition:0.2s ease;
         	font-size:40px;
             width:50px;
         	color:#FFFFFF;

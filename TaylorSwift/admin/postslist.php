@@ -41,6 +41,7 @@
                     background-color:#99AA55;
                 }
                 .button{
+                    transition:0.2s ease;
                     color:#000000;
                     margin:30px;
                     padding:10px;
@@ -70,12 +71,13 @@
                     </tr>
                 <tbody>
                 <?php  
-                session_start();   //检测是否登录，若没登录则转向登录界面  
+                session_start();
+                //检测是否登录  
                 if(!isset($_SESSION['userid'])){   
                     exit('非法访问!');  
                 }  
                 require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php'; 
-                $query=$dbb->prepare("select * from i_posts");
+                $query=$dbb->prepare("select * from i_posts order by id");
                 $query->execute(); 
                 while ($row = $query->fetch(PDO::FETCH_NUM)) { ?>
                     <tr>

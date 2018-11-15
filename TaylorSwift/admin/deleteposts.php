@@ -17,7 +17,7 @@
 <body>	
 	<?php  
     session_start();  
-      //检测是否登录，若没登录则转向登录界面  
+      //检测是否登录  
     if(!isset($_SESSION['userid'])){  
       exit('非法访问!'); 
     }       
@@ -42,7 +42,7 @@
     }
 	?>
 	<script>
-		setTimeout(function(){location.href='./postsedit.php';},"2000"); 
+		setTimeout(function(){location.href='./postslist.php';},"2000"); 
 	</script>
 </body>
 </html>

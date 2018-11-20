@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>编辑</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../css/bootstrap-float-label.css">
 	<link rel="stylesheet" type="text/css" href="../css/shijian.css"/>
@@ -19,8 +20,8 @@
 			background-color:#BDE61A;
 		}
 		.body{
-			width:40%; 
-			height:60%;
+			width:500px; 
+			height:570px;
 			padding:20px;
 			background-color:#FFFFFF;
 			border-radius:30px 30px 30px 30px;
@@ -75,7 +76,7 @@
 			<form name="form1" action="newsupdate.php" method="post">
 				<input type="hidden" name="id" value = "<?php echo $news->id; ?>"/>
 				<label for="time">Time</label>
-				<input type="text" name="time" id="timein" style="outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A" value="<?php echo date('Y-m-d H:i',strtotime($news->time)); ?>"/>
+				<input type="text" name="time" id="timein" style="cursor:pointer;text-indent:0em;outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A" value="<?php echo date('Y-m-d H:i',strtotime($news->time)); ?>"/>
                 <div class="jsbox"></div>
 				<div class="form-group floating-control-group">
 					<label for="txtFloatingUsername">Title</label>
@@ -83,7 +84,7 @@
 					</div>
 				<div class="form-group floating-control-group">
 					<label for="txtFloatingComments">Body</label>
-					<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none" onkeydown="OnInput (event)"><?php echo $news->body; ?></textarea>
+					<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none;" onkeydown="OnInput (event)"><?php echo $news->body; ?></textarea>
 				</div>
 				<button type="submit" class="btn btn-primary" onclick="return check()"> 提 交 </button>
 			</form>

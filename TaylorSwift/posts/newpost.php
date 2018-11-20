@@ -5,6 +5,7 @@
         <title>
             Posts
         </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <script src="../js/jquery-1.11.0.min.js"></script>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
         <link rel="stylesheet" href="../css/animate.css"/>
@@ -46,8 +47,8 @@
                 transition:1s ease;
                 min-height: 95vh;
                 background:#FFFFFF url(../images/<?php echo rand(1,11); ?>.jpg) no-repeat fixed top;
-                background-size:100%;
                 background-attachment:fixed;
+                background-size:1270px;
             }
             li{
                 list-style: none;
@@ -112,6 +113,7 @@
                 box-shadow:0px 0px 1px 2px #E61AA6 inset;
             }
             .button{
+                cursor:pointer;
                 width: 15%;
                 padding: 10px;
                 background: none;

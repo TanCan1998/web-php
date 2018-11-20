@@ -5,13 +5,15 @@
         <title>
             Posts
         </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
+        <link rel="stylesheet" href="../css/animate.css">
         <style type="text/css">
             body { width:100%; height:100%;overflow-x:hidden; }
             html{
                 font-family:"微软雅黑";
                 background:#FFFFFF url(../images/background1.jpg) no-repeat fixed top;
-                background-size:100%;
+                background-size:1270px;
             }
     		ul{
                 list-style-type:none;
@@ -81,13 +83,14 @@
                 text-decoration:none;
                 text-transform:uppercase;
                 border-radius:25px;
-                box-shadow:0px 0px 2px 2px #840B9C;
+                box-shadow:0px 0px 12px 2px #840B9C;
     		}
             .back a:hover,a:active{
-                box-shadow:0px 0px 1px 2px #840B9C inset;
+                box-shadow:0px 0px 4px 1px #840B9C inset;
             }
             .button{
-                width: 15%;
+                cursor:pointer;
+                width: 72px;
                 padding: 10px;
                 background-color: #E61AA6;
                 border-radius: 20px;
@@ -125,10 +128,14 @@
                 box-shadow:0px 0px 13px #00FFFF inset,0px 0px 8px #00FFFF;
             }
         </style>
+        <script src="../js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+        </script>
     </head>
     <body>
         <?php 
-            require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php'; 
+            require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
             require_once $_SERVER['DOCUMENT_ROOT'].'../inc/scroll.php';
             $id = $_GET['id'];
             $query=$dbb->prepare("select * from i_posts where id = :id");
@@ -137,6 +144,7 @@
             $row = $query->fetch(PDO::FETCH_NUM);
         ?>
         <div align="center">
+            <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
             <div class="post">
                 <h1>帖子</h1>
                 <h2><?php echo $row[1];?></h2>
@@ -173,14 +181,17 @@
                 <span><?php echo date('Y-m-d H:i',strtotime($row[3])); ?></span>
                 <div style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $row[2] ?></div>
             </div>
+            </div>
             <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
             <ul>
                 <?php
+                    require_once $_SERVER['DOCUMENT_ROOT'].'../inc/wow.php';
                     $query = $dbb->prepare("select * from i_comments where post_id = :post_id order by id");
                     $query->bindValue(':post_id',$id,PDO::PARAM_INT);
                     $query->execute();
                     while($row = $query->fetch(PDO::FETCH_NUM)){
                 ?>
+                <div class="wow <?php echo $randValue; ?>" data-wow-duration="1.5s" data-wow-offset="10"  data-wow-iteration="1">
                 <div class="comment" style="box-shadow: 8px 8px  rgb(<?php echo rand(0,255).','.rand(0,255).','.rand(0,255); ?>)">
                     <li>
                         <p><?php echo $row[1];?></p>
@@ -188,9 +199,11 @@
                         <span><?php echo date('Y-m-d H:i',strtotime($row[3]));?></span>
                     </li>
                 </div>
+                </div>
                 <br>
                 <?php } ?>
             </ul>
+            <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
             <div class="add" id="add">
                 <h2 style="color:#E61AA6;text-shadow:1px 1px 2px #00FFFF">添加评论</h2>
                 <form name="form1" method="post" action="commentupdate.php?catalog=<?php echo $_GET['catalog']; ?>">
@@ -205,6 +218,7 @@
                     <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden;"></textarea>
                     <div class="button" name="submit" onclick="check()">提交</div>
                 </form>
+            </div>
             </div>
             <div class="back">
                 <a href="posts.php?catalog=<?php echo $_GET['catalog']; ?>">

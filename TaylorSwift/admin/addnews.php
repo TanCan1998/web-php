@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>新增</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../css/bootstrap-float-label.css">
 	<link rel="stylesheet" type="text/css" href="../css/shijian.css"/>
@@ -17,8 +18,8 @@
 		}
 		.body{
 			/*border:4px solid #006666; */
-			width:40%; 
-			height:60%;
+			width:500px; 
+			height:570px;
 			padding:20px;
 			background-color:#FFFFFF;
 			border-radius:30px 30px 30px 30px;
@@ -61,7 +62,7 @@
 
 			<form name="form1" action="savenews.php" method="post">
 				<label for="time">Time</label>
-				<input type="text" name="time" id="timein" value="<?php echo date('Y-m-d H:i',time()); ?>" style="outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A"/>
+				<input type="text" name="time" id="timein" value="<?php echo date('Y-m-d H:i',time()); ?>" style="cursor:pointer;text-indent:0em;outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A"/>
                 <div class="jsbox"></div>
 				<div class="form-group floating-control-group">
 				<label for="txtFloatingUsername">Title</label>

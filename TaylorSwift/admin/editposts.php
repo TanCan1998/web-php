@@ -119,6 +119,7 @@
                 box-shadow:0px 0px 1px 2px #E61AA6 inset;
             }
             .button{
+                cursor:pointer;
                 width: 15%;
                 padding: 10px;
                 background: none;

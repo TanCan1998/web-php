@@ -5,10 +5,10 @@
         <title>
             登陆页
         </title>
-        <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles."/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <link rel="stylesheet" media="screen" href="../css/cssstyle.css"/>
         <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+        <link rel="stylesheet" href="../css/animate.css">
         <style>
             html{
                 font-family:"微软雅黑";
@@ -40,41 +40,37 @@
                 header("location:./admin.php");
             }
         ?>
-        <div id="particles-js">
-            <div class="login">
-                <div class="login-top" style="color:#20B6B1">
-                    管理员登录
-                </div>
-                <form name="form1" method="post" action="Login.php?action=1">
-                    <input type="hidden" name="submit1"/>
-                    <div class="login-center clearfix">
-                        <div class="login-center-img">
-                            <img src="../images/name.png"/>
-                        </div>
-                        <div class="login-center-input">
-                            <input type="text" name="username" id="username" value="" placeholder="请输入管理员用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入管理员用户名'"/>
-                            <div class="login-center-input-text">
-                                用户名
-                            </div>
-                        </div>
-                    </div>
-                    <div class="login-center clearfix">
-                        <div class="login-center-img">
-                            <img src="../images/password.png"/>
-                        </div>
-                        <div class="login-center-input">
-                            <input type="password" name="password" id="password" value="" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'"/>
-                            <div class="login-center-input-text">
-                                密码
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="button" name="submit" onclick="check()">
-                    登 陆
-                </div>
+        <div class="login">
+            <div class="login-top" style="color:#20B6B1">
+                管理员登录
             </div>
-            <div class="sk-rotating-plane">
+            <form name="form1" method="post" action="Login.php?action=1">
+                <input type="hidden" name="submit1"/>
+                <div class="login-center clearfix">
+                    <div class="login-center-img">
+                        <img src="../images/name.png"/>
+                    </div>
+                    <div class="login-center-input">
+                        <input type="text" name="username" id="username" value="" placeholder="请输入管理员用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入管理员用户名'"/>
+                        <div class="login-center-input-text">
+                            用户名
+                        </div>
+                    </div>
+                </div>
+                <div class="login-center clearfix">
+                    <div class="login-center-img">
+                        <img src="../images/password.png"/>
+                    </div>
+                    <div class="login-center-input">
+                        <input type="password" name="password" id="password" value="" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'"/>
+                        <div class="login-center-input-text">
+                            密码
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="button" name="submit" onclick="check()">
+                登 陆
             </div>
         </div>
         <script>
@@ -93,6 +89,10 @@
                   document.form1.submit();
                 }
         }
+        </script>
+        <script src="../js/wow.min.js"></script>
+        <script>
+            new WOW().init();
         </script>
     </body>
 </html>

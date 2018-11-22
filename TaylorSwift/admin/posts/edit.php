@@ -1,3 +1,10 @@
+<?php 
+    session_start();  
+    //检测是否登录  
+    if(!isset($_SESSION['userid'])){  
+        exit('非法访问!');
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,12 +12,11 @@
         <title>
             Posts
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-        <script src="../js/jquery-1.11.0.min.js"></script>
+        <script src="../../js/jquery-1.11.0.min.js"></script>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
-        <link rel="stylesheet" href="../css/animate.css"/>
-        <link rel="stylesheet" href="../fonts/font/fontCss.css"/>
-        <link rel="stylesheet" type="text/css" href="../css/music.css"/>
+        <link rel="stylesheet" href="../../css/animate.css"/>
+        <link rel="stylesheet" href="../../fonts/font/fontCss.css"/>
+        <link rel="stylesheet" type="text/css" href="../../css/music.css"/>
         <script>
             $(document).ready(function(){
                 //子导航展开收缩
@@ -46,9 +52,9 @@
             body {
                 transition:1s ease;
                 min-height: 95vh;
-                background:#FFFFFF url(../images/<?php echo rand(1,11); ?>.jpg) no-repeat fixed top;
+                background:#FFFFFF url(../../images/<?php echo rand(1,10); ?>.jpg) no-repeat fixed top;
+                background-size:100%;
                 background-attachment:fixed;
-                background-size:1270px;
             }
             li{
                 list-style: none;
@@ -61,11 +67,20 @@
             select{
                 -webkit-appearance:none;
             }
+            ::selection {
+                background:#E61AA6;
+            }
+            ::-moz-selection {
+                background:#E61AA6;
+            }
+            ::-webkit-selection {
+                background:#E61AA6;
+            }
             input,textarea,select{
                 margin:15px;
                 outline:none;
                 border: 1px solid #00FFFF;
-                box-shadow:0px 0px 10px #00FFFF;
+                box-shadow:0px 0px 15px #00FFFF;
             }
             input,textarea{
                 background:rgba(0,0,0,0.1);
@@ -90,7 +105,7 @@
                 width:60%; 
                 padding:20px;
                 border-radius:50px 50px 50px 50px;
-                box-shadow:0px 0px 15px #00FFFF;
+                box-shadow:0px 0px 25px #00FFFF inset;
             }
             .back a:link,a:visited{
                 color:#FFFFFF;
@@ -105,7 +120,7 @@
                 text-transform:uppercase;
                 border-radius:25px;
                 text-shadow:0px 0px 6px #000000;
-                box-shadow:0px 0px 2px 2px #00FFFF;
+                box-shadow:0px 0px 2px 2px #00FFFF,0px 0px 12px 1px #ffffff inset;
             }
             .back a:hover,a:active{
                 margin:26px;
@@ -159,51 +174,67 @@
     </head>
     <body>
         <div align="center">
-            <?php 
-                switch ($_GET['catalog']) {
-                    case 2:
+            <?php
+                require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
+                $id    = $_GET['id'];
+                $query=$dbb->prepare("select * from i_posts where id = :id");
+                $query->bindValue(':id',$id,PDO::PARAM_INT);
+                $query->execute();
+                $post  = $query->fetchObject();
+                switch ($post->catalog) { 
+                    case 2: 
                         $catalog="娱乐";
-                        break;
-                    case 3:
-                        $catalog="文史";
-                        break;
-                    case 4:
+                        break; 
+                    case 3: 
+                        $catalog="文史"; 
+                        break; 
+                    case 4: 
                         $catalog="股票";
-                        break;
-                    case 5:
-                        $catalog="体育";
-                        break;
-                    case 6:
-                        $catalog="美食";
-                        break;
-                    case 7:
-                        $catalog="生活";
-                        break;
-                    case 8:
-                        $catalog="星座";
-                        break;
-                    case 1:
-                    case 9:
-                        $catalog="其他";
-                        break;
-                }
-
-            ?>
-            <h1>发表新帖</h1>
+                        break; 
+                    case 5: 
+                        $catalog="体育"; 
+                        break; 
+                    case 6: 
+                        $catalog="美食"; 
+                        break; 
+                    case 7: 
+                        $catalog="生活"; 
+                        break; 
+                    case 8: 
+                        $catalog="星座"; 
+                        break; 
+                    case 9: 
+                        $catalog="其他"; 
+                        break; 
+                    };
+                ?>
+            <h1>
+                编辑帖子
+            </h1>
             <div class="add">
-                <form name="form1" method="post" action="postsave.php?cata=<?php echo $_GET['catalog']; ?>">
-                    <input type="hidden" id="catalog" name="catalog" value="<?php echo $catalog; ?>">
-                    <input type="hidden" name="time" value = "<?php echo date('y-m-d H:i:s',time()); ?> "/>
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" style="width:60%;padding:4px;text-align:center;border-radius:15px"/>
-                    <br/>
+                <form name="form1" method="post" action="update.php?id=<?php echo $id; ?>">
                     <input type='text' style='display:none'/>
-                    <label for="body" style="">Body</label>
-                    <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden" onkeydown="OnInput (event)"></textarea>
+                    <input type="hidden" id="catalog" name="catalog" value="<?php echo $catalog; ?>">
+                    <label for="title">
+                        title
+                    </label>
+                    <input type="text" id="title" name="title" style="width:60%;padding:4px;text-align:center;border-radius:15px" value="<?php echo $post->title; ?>" />
                     <br/>
-                    <label for="catalog">catalog</label>
+                    <label for="body">
+                        Body
+                    </label>
+                    <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden" onkeydown="OnInput (event)"><?php echo $post->body; ?></textarea>
+                    <br/>
+                    <label for="catalog">
+                        catalog
+                    </label>
                     <div class="sewv">
-                        <div class="sewvtop"><span><?php echo $catalog; ?></span><em><img src="../images/selebom.png"></em></div>
+                        <div class="sewvtop">
+                            <span><?php echo $catalog; ?></span>
+                            <em>
+                                <img src="../../images/selebom.png"/>
+                            </em>
+                        </div>
                         <ul class="sewvbm">
                             <li>其他</li>
                             <li>娱乐</li>
@@ -216,13 +247,19 @@
                             <li>星座</li>
                         </ul>
                     </div>
-                    <div class="button" name="submit" onclick="check()">提交</div>
+                    <div class="button" name="submit" onclick="check()">
+                        提交
+                    </div>
                 </form>
             </div>
         </div>
-        <div class="back" align="center"><a href="javascript:history.back(-1)">返回</a></div>
-        <script type="text/javascript" src="../js/canvas-nest.min.js"></script>
-        <script type="text/javascript" src="../js/textinputheight.js"></script>
+        <div class="back" align="center">
+            <a href="./">
+                返回
+            </a>
+        </div>
+        <script type="text/javascript" src="../../js/canvas-nest.min.js"></script>
+        <script type="text/javascript" src="../../js/textinputheight.js"></script>
         <script>
             var text = document.getElementById("body");//text自适应
             autoTextarea(text);                        //
@@ -245,13 +282,13 @@
             <div class="music-mask">
             </div>
         </div>
-        <script type="text/javascript" src="../js/music.js"></script>
+        <script type="text/javascript" src="../../js/music.js"></script>
         <script type="text/javascript">
             window.onload = function(){
                 MC.music({
                     hasAjax:false,
                     left:'89%',
-                    bottom:'10%',
+                    bottom:'85%',
                     musicChanged:function(ret){
                         // alert(ret.url);
                         // getMusic_buffer(ret.url);
@@ -259,27 +296,25 @@
                         var data = ret.data;
                         var index = ret.index;
                         var imageUrl = data[index].img_url;
+                        
                         var music_bg = document.getElementById('music-bg');
                         music_bg.style.background = 'url('+imageUrl+')no-repeat';
                         music_bg.style.backgroundSize = 'cover';
                         music_bg.style.backgroundPosition = 'center 30%';
-                    },
-                    getMusicInfo:function(data){    
-                    },
-                    musicPlayByWebAudio:function(ret){    
+                    },       
+                    getMusicInfo:function(data){                      
+                    },           
+                    musicPlayByWebAudio:function(ret){                      
                     },
                 });
                 var i=0;
                 var j=0;
                 function time(){
                     j=i%11+1;
-                    document.body.style.backgroundImage="url(../images/"+j+".jpg)";
+                    document.body.style.backgroundImage="url(../../images/"+j+".jpg)";
                     i++; 
                 }
                 setInterval(time,12000);//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
-                //
-                var el = document.getElementById('body');
-                el.value="<p></p>";
             }
         </script>
     </body>

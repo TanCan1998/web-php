@@ -8,7 +8,7 @@
         	font-family:"微软雅黑";
     	}
       body{
-        background:#FFFFFF url(../images/2.jpg) no-repeat fixed top;
+        background:#FFFFFF url(../../images/2.jpg) no-repeat fixed top;
         background-size:1280px 830px;
         background-attachment:fixed;
       }
@@ -21,7 +21,7 @@
     if(!isset($_SESSION['userid'])){  
       exit('非法访问!'); 
     }       
-    require_once'../inc/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
     $id = $_GET['id'];
     $query=$dbb->prepare(" delete from i_posts where id = :id");
     $query->bindValue(':id',$id,PDO::PARAM_INT);
@@ -42,7 +42,7 @@
     }
 	?>
 	<script>
-		setTimeout(function(){location.href='./postslist.php';},"2000"); 
+		setTimeout(function(){location.href='./';},"2000"); 
 	</script>
 </body>
 </html>

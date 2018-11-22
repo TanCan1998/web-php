@@ -48,6 +48,15 @@
 			color:#FF77C9;
 			background-color:#99AA55;
 		}
+		::selection {
+            background:#d3d3d3;
+        }
+        ::-moz-selection {
+            background:#d3d3d3;
+        }
+        ::-webkit-selection {
+            background:#d3d3d3;
+        }
 	</style>
 </head>
 <body>
@@ -55,18 +64,18 @@
 		<h1>霉闻趣事</h1>
 		<ul>
 			<?php
-				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
+				require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
 				$query = $dbb->prepare("select * from i_news order by id");
 				$query->execute();
 				while ($row = $query->fetch(PDO::FETCH_NUM)) {
 			?>
-		    <li><a href="shownews.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
+		    <li><a href="show.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
 		    	<?php echo $row[1];?>
 		    </a></li>
 			<?php }?>
 		</ul>
 		</div>
-	<div class="home" align="center"><a href="../index.php">首页</a></div>
+	<div class="home" align="center"><a href="../">首页</a></div>
 	
 </body>
 </html>

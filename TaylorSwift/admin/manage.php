@@ -60,8 +60,8 @@
 	<div align="center">
 		<ul>
 			<li><a title="首页" href="../">Home</a></li>
-			<li><a title="编辑新闻" href="newslist.php">News</a></li>
-			<li><a title="编辑帖子" href="postslist.php">Posts</a></li>
+			<li><a title="编辑新闻" href="./news/">News</a></li>
+			<li><a title="编辑帖子" href="./posts/">Posts</a></li>
 			<li><a title="审核评论" href="#about">Comments</a></li>
 		</ul>
 		<h1><?php echo '管理员：',$username; ?></h1>

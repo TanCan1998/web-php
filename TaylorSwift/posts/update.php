@@ -8,7 +8,7 @@
     </head>
     <body>
         <?php
-            require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
             $id = $_POST['post_id'];
             $title = htmlentities($_POST['title']);
             $body  = htmlentities($_POST['body']);
@@ -25,7 +25,7 @@
         ?>
                 <script language='JavaScript'>
                     alert('添加评论成功！\n点击确定跳转到刚刚发表的评论哦');
-                    location.href='./showposts.php?id=<?php echo $id; ?>&catalog=<?php echo $_GET['catalog']; ?>#add';
+                    location.href='./show.php?id=<?php echo $id; ?>&catalog=<?php echo $_GET['catalog']; ?>#add';
                 </script>
         <?php } ?>
     </body>

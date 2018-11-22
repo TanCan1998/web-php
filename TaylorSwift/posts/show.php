@@ -15,6 +15,18 @@
                 background:#FFFFFF url(../images/background1.jpg) no-repeat fixed top;
                 background-size:1270px;
             }
+            ::selection {
+                background:#d3d3d3; 
+                color:#555555;
+            }
+            ::-moz-selection {
+                background:#d3d3d3; 
+                color:#555555;
+            }
+            ::-webkit-selection {
+                background:#d3d3d3; 
+                color:#555555;
+            }
     		ul{
                 list-style-type:none;
                 margin:0;
@@ -135,8 +147,8 @@
     </head>
     <body>
         <?php 
-            require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
-            require_once $_SERVER['DOCUMENT_ROOT'].'../inc/scroll.php';
+            require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
+            require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php';
             $id = $_GET['id'];
             $query=$dbb->prepare("select * from i_posts where id = :id");
             $query->bindValue(':id',$id,PDO::PARAM_INT);
@@ -179,13 +191,13 @@
                     ?>
                 </p>
                 <span><?php echo date('Y-m-d H:i',strtotime($row[3])); ?></span>
-                <div style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $row[2] ?></div>
+                <div class="content" style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $row[2] ?></div>
             </div>
             </div>
             <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
             <ul>
                 <?php
-                    require_once $_SERVER['DOCUMENT_ROOT'].'../inc/wow.php';
+                    require_once $_SERVER['DOCUMENT_ROOT'].'./inc/wow.php';
                     $query = $dbb->prepare("select * from i_comments where post_id = :post_id order by id");
                     $query->bindValue(':post_id',$id,PDO::PARAM_INT);
                     $query->execute();
@@ -206,7 +218,7 @@
             <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
             <div class="add" id="add">
                 <h2 style="color:#E61AA6;text-shadow:1px 1px 2px #00FFFF">添加评论</h2>
-                <form name="form1" method="post" action="commentupdate.php?catalog=<?php echo $_GET['catalog']; ?>">
+                <form name="form1" method="post" action="update.php?catalog=<?php echo $_GET['catalog']; ?>">
                     <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
                     <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
                     <input type='text' style='display:none'/>
@@ -221,7 +233,7 @@
             </div>
             </div>
             <div class="back">
-                <a href="posts.php?catalog=<?php echo $_GET['catalog']; ?>">
+                <a href="./index.php?catalog=<?php echo $_GET['catalog']; ?>">
                     返回
                 </a>
             </div>

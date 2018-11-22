@@ -14,6 +14,15 @@
 		  background-color:#54FF9F;
 		  background-attachment:fixed;
 		}
+		::selection {
+            background:#d3d3d3;
+        }
+        ::-moz-selection {
+            background:#d3d3d3;
+        }
+        ::-webkit-selection {
+            background:#d3d3d3;
+        }
 		h1{
             margin:0px;
             color:#006666;
@@ -84,8 +93,8 @@
 </head>
 <body>
 	<?php
-		require_once $_SERVER['DOCUMENT_ROOT'].'../inc/db.php';
-		require_once $_SERVER['DOCUMENT_ROOT'].'../inc/scroll.php';
+		require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
+		require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php';
 		$id    = $_GET['id'];
 		$sql   = 'select * from i_news where id = :id';
 		$query = $dbb->prepare($sql);
@@ -99,11 +108,11 @@
 				<p><?php echo date('Y-m-d H:i',strtotime($news->time)); ?></p>
 			</div>
 			<div class="body">
-				<div style="text-align:left;text-indent:2em"><?php echo $news->body; ?></div>
+				<div class="content" style="text-align:left;text-indent:2em"><?php echo $news->body; ?></div>
 			</div>
 			<br>
-		<a href="news.php">返回</a>
-		<a href="../index.php">首页</a>	
+		<a href="./">返回</a>
+		<a href="../">首页</a>	
 		<?php 
 			$last=$id-1;
 			$next=$id+1;
@@ -111,13 +120,13 @@
 			$query->execute();
 			$row=$query->fetch(PDO::FETCH_NUM);
 			if($row!=null){
-				echo "<a href=\"shownews.php?id={$last}\" title=\"$row[1]\">上一篇</a>";
+				echo "<a href=\"show.php?id={$last}\" title=\"$row[1]\">上一篇</a>";
 			}
 			$query->bindValue(':id',$next,PDO::PARAM_INT);
 			$query->execute();
 			$row=$query->fetch(PDO::FETCH_NUM);
 			if($row!=null){
-				echo "<a href=\"shownews.php?id={$next}\" title=\"$row[1]\">下一篇</a>";
+				echo "<a href=\"show.php?id={$next}\" title=\"$row[1]\">下一篇</a>";
 			}
 			else{
 				echo "<a href=\"#\">没有下一篇了╭(╯^╰)╮</a>";

@@ -67,7 +67,7 @@ if ($row = $check_query->fetch(PDO::FETCH_NUM)) {
 
     $_SESSION['userid'] = $row[0];
     
-    echo '<div align="center">',$username, '欢迎你！进入 <a href="admin.php">管理中心</a><br />';
+    echo '<div align="center">',$username, '欢迎你！进入 <a href="manage.php">管理中心</a><br />';
 
     echo '点击此处 <a href="Login.php?action=logout">注销 登录！</a><br /></div>';
 
@@ -88,7 +88,7 @@ if ($_GET['action'] == "logout") {
 
     unset($_SESSION['username']);
 
-    echo '<div align="center">注销成功！点击此处 <a href="LoginFrame.php">登录</a><br>';
+    echo '<div align="center">注销成功！点击此处 <a href="./">登录</a><br>';
 
     echo '点击此处返回<a href="../index.php">首页</a></div>';
 

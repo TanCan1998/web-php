@@ -48,6 +48,15 @@
 		  min-height: 100%;
 		  background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
 		}
+		::selection {
+            background:#F44380;
+        }
+        ::-moz-selection {
+            background:#F44380;
+        }
+        ::-webkit-selection {
+            background:#F44380;
+        }
 		.header-navigation {
 		  position: fixed;
 		  top: 0;
@@ -121,10 +130,10 @@
 	<header class="header-navigation" id="header">
 	  <nav>
 	   <a class="link" href="#" title="Black history">霉的“黑历史”</a>
-	   <a class="link" href="./news/news.php" title="News" target="_blank">霉闻趣事</a>
-	   <a class="link" href="https://dwz.cn/ngGxrVBM" title="Pictures" target="blank">美霉图</a>
+	   <a class="link" href="./news/" title="News" target="_blank">霉闻趣事</a>
+	   <a class="link" href="./pictures/" title="Pictures" target="blank">美霉图</a>
 	   <a class="link" href="https://www.taylorswift.com" title="Mall" target="_blank">商城图鉴</a>
-	   <a class="link" href="./posts/posts.php?catalog=cata1" title="Posts" target="_blank">交流论坛</a>
+	   <a class="link" href="./posts/index.php?catalog=cata1" title="Posts" target="_blank">交流论坛</a>
 	  </nav>
 	</header>
 	<div class="htmleaf-container">
@@ -132,7 +141,7 @@
 			<h1>TAYLOR SWIFT <span>Come morning light.You and I'll be safe and sound.</span></h1>
 			<div class="htmleaf-links">
 				<a class="htmleaf-icon icon-htmleaf-home-outline" href="#wrapper<?php echo rand(1,2); ?>" title="Home"><span> Home</span></a>
-				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="./admin/LoginFrame.php" title="Management" target="_blank"><span> Login</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="./admin/" title="Management" target="_blank"><span> Login</span></a>
 			</div>
 		</div>
 	</div>

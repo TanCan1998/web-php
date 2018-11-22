@@ -120,7 +120,7 @@
                         ?></td>
                         <td><?php echo $row[3] ?></td>
                         <td style="width:100px">
-                          <a href="editposts.php?id=<?php echo $row[0];?>">改</a>
+                          <a href="edit.php?id=<?php echo $row[0];?>">改</a>
                           <a href="javascript:;" onclick="delete1(<?php echo $row[0];?>)">删</a>
                         </td>
                     </tr>
@@ -131,12 +131,12 @@
         </div>
         <script>
             function home(){
-                location.href="./admin.php";
+                location.href="../manage.php";
             }
             function delete1(aa){
                 var str=aa;
                 if(confirm("确认删除此帖？\n此操作将会删除此贴相关的评论哦ヾ(ｏ･ω･)ﾉ")){ 
-                    location.href="deleteposts.php?id="+aa;
+                    location.href="delete.php?id="+aa;
                 }
             }
         </script>

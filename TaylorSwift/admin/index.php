@@ -37,7 +37,7 @@
             session_start();  
             //检测是否登录 
             if(isset($_SESSION['userid'])){  
-                header("location:./admin.php");
+                header("location:./manage.php");
             }
         ?>
         <div class="login">

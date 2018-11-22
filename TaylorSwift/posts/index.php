@@ -132,6 +132,18 @@
         .catalog a:hover{
         	box-shadow:0px 0px 2px #840B9C inset,1px 1px 2px #840B9C;
         }
+        ::selection {
+            background:#00FFFF;
+            color:#ffffff;
+        }
+        ::-moz-selection {
+            background:#00FFFF;
+            color:#ffffff;
+        }
+        ::-webkit-selection {
+            background:#00FFFF;
+            color:#ffffff;
+        }
         #<?php echo $_GET['catalog']; ?>{
 			color:#FFFFFF;
 			background-color:#E61AA6;
@@ -143,15 +155,15 @@
 		<h1>论坛</h1>
 		<div class="catalog" align="center">
 			<ul>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata1" id="cata1">所有</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.1s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata2" id="cata2">娱乐</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.2s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata3" id="cata3">文史</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.3s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata4" id="cata4">股票</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.4s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata5" id="cata5">体育</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.5s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata6" id="cata6">美食</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.6s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata7" id="cata7">生活</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.7s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata8" id="cata8">星座</a></li></div>
-				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.8s" data-wow-iteration="1"><li><a href="posts.php?catalog=cata9" id="cata9">其他</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0s" data-wow-iteration="1"><li><a href="index.php?catalog=cata1" id="cata1">所有</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.1s" data-wow-iteration="1"><li><a href="index.php?catalog=cata2" id="cata2">娱乐</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.2s" data-wow-iteration="1"><li><a href="index.php?catalog=cata3" id="cata3">文史</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.3s" data-wow-iteration="1"><li><a href="index.php?catalog=cata4" id="cata4">股票</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.4s" data-wow-iteration="1"><li><a href="index.php?catalog=cata5" id="cata5">体育</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.5s" data-wow-iteration="1"><li><a href="index.php?catalog=cata6" id="cata6">美食</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.6s" data-wow-iteration="1"><li><a href="index.php?catalog=cata7" id="cata7">生活</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.7s" data-wow-iteration="1"><li><a href="index.php?catalog=cata8" id="cata8">星座</a></li></div>
+				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.8s" data-wow-iteration="1"><li><a href="index.php?catalog=cata9" id="cata9">其他</a></li></div>
 			</ul>
 		</div>
 		<form name="form1" action="redict.php?catalog=<?php echo $_GET['catalog']; ?>" method="post">
@@ -163,7 +175,7 @@
 		</form>
 		<datalist id="mylist">
 			<?php
-				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
+				require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
 				$catalog=mb_substr($_GET['catalog'],4,1);
 				if($catalog==1){
 					$query=$dbb->prepare("select title from i_posts order by id");
@@ -179,7 +191,7 @@
 		</datalist>  
 		<ul>
 			<?php
-				require_once $_SERVER['DOCUMENT_ROOT'].'../inc/wow.php';
+				require_once $_SERVER['DOCUMENT_ROOT'].'./inc/wow.php';
 				$query=$dbb->prepare("select * from i_posts order by id");
 				$query->execute();
 				$check_num=0;
@@ -189,7 +201,7 @@
 					echo "
 					<div class=\"wow $randValue1\" data-wow-duration=\"1s\" data-wow-offset=\"10\" data-wow-delay=\"$delay"."s"."\"  data-wow-iteration=\"1\">	
 					<li style=\"padding:5px;\">		    
-			    	<a href=\"showposts.php?id=$row[0]&catalog=$_GET[catalog]\" style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis\" title=\"创建于$row[3]\">
+			    	<a href=\"show.php?id=$row[0]&catalog=$_GET[catalog]\" style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis\" title=\"创建于$row[3]\">
 			    	$row[1]
 			        </a> 
 			        </li>
@@ -204,8 +216,8 @@
 			?>
 		</ul>
 	</div>
-	<div class="button" align="center"><a href="./newpost.php?catalog=<?php echo $catalog;?>">发布</a></div>
-	<div class="button" align="center"><a href="../index.php">首页</a></div>
+	<div class="button" align="center"><a href="./new.php?catalog=<?php echo $catalog;?>">发布</a></div>
+	<div class="button" align="center"><a href="../">首页</a></div>
 	<script>
 		function check(){
                 var obj = document.getElementById("t");
@@ -219,7 +231,7 @@
                 }
             }
 	</script>
-	<?php require_once $_SERVER['DOCUMENT_ROOT'].'../inc/scroll.php'; ?>
+	<?php require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php'; ?>
 	<script opacity='0.7' zIndex="-1" count="100" type="text/javascript" src="../js/canvas-nest.min.js"></script>
 	<script src="../js/wow.min.js"></script>
     <script>

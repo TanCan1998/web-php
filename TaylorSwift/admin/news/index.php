@@ -63,15 +63,15 @@
         $query->execute(); 
 		while ($row = $query->fetch(PDO::FETCH_NUM)) {
 	?>
-		<li><a href="editnews.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
+		<li><a href="edit.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
 			<?php echo '@',$row[1];?>
 	    </a></li>
 	<?php }?>
 	</ul>
 	</div>
 	<div class="back" align="center">
-		<a href="./admin.php">返回</a>
-		<a href="./addnews.php">新增</a>
+		<a href="../manage.php">返回</a>
+		<a href="./new.php">新增</a>
 	</div>
 
 </body>

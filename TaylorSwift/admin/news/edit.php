@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<title>编辑</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../css/bootstrap-float-label.css">
-	<link rel="stylesheet" type="text/css" href="../css/shijian.css"/>
+	<link href="../../css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/bootstrap-float-label.css">
+	<link rel="stylesheet" type="text/css" href="../../css/shijian.css"/>
 	<style type="text/css">
 		html{
           	font-family:"微软雅黑";
@@ -45,6 +45,18 @@
 		input,textarea{
 			text-indent:2.5em;
 		}
+		::selection {
+            background:#BDE61A; 
+            color:#555555;
+        }
+        ::-moz-selection {
+            background:#BDE61A; 
+            color:#555555;
+        }
+        ::-webkit-selection {
+            background:#BDE61A; 
+            color:#555555;
+        }
 	</style>
 	<script>
 		function OnInput (event){
@@ -63,7 +75,7 @@
 				if(!isset($_SESSION['userid'])){  
 		    		exit('非法访问!');
 				} 
-				require_once $_SERVER['DOCUMENT_ROOT'] . '../inc/db.php';
+				require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
 				
 				$id    = $_GET['id'];
                 $query=$dbb->prepare("select * from i_news where id = :id");
@@ -73,7 +85,7 @@
 			?>
 			<h1>编辑新闻</h1>
 
-			<form name="form1" action="newsupdate.php" method="post">
+			<form name="form1" action="update.php" method="post">
 				<input type="hidden" name="id" value = "<?php echo $news->id; ?>"/>
 				<label for="time">Time</label>
 				<input type="text" name="time" id="timein" style="cursor:pointer;text-indent:0em;outline:none;border: 1px solid #BDE61A;text-align:center;border-radius:10px;color:#BDE61A" value="<?php echo date('Y-m-d H:i',strtotime($news->time)); ?>"/>
@@ -88,13 +100,13 @@
 				</div>
 				<button type="submit" class="btn btn-primary" onclick="return check()"> 提 交 </button>
 			</form>
-			<a href="./newslist.php">取消</a>
+			<a href="./">取消</a>
 		</div>
 	</div>
-	<script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/bootstrap-float-label.js"></script>
-	<script src="../js/jquer_shijian.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="../../js/bootstrap.min.js"></script>
+	<script src="../../js/bootstrap-float-label.js"></script>
+	<script src="../../js/jquer_shijian.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(function(){
 			$('.form-group').floatingLabel()

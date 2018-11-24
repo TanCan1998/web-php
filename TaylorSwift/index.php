@@ -123,6 +123,24 @@
 		    border: 3px dashed #606058;
 		    box-shadow:0px 0px 36px 6px #606058;
 		}
+		@media only screen and (max-width: 500px) {
+            html{
+            	height:200%;
+                width:200%;
+            }
+            .iframe_page{
+            	width:700px;
+            }
+            .iframe_page #framePage{
+            	width:700px;
+            }
+            *{
+            	font-size:19px;
+            }
+            h1{
+            	font-size:29px;
+            }
+        }
 	</style>
 </head>
 
@@ -146,9 +164,31 @@
 		</div>
 	</div>
 	<script>
-		    $(function () {
-
-		        $("#wrapper1").jPicture([
+	    $(function () {
+	    	var ua = navigator.userAgent;
+	        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+	        isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+	        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+	        isMobile = isIphone || isAndroid;
+	        //判断
+	        if(isMobile){
+	            $("#wrapper1").jPicture([
+		            { src: "./images/1.jpg"},
+		            { src: "./images/2.jpg"},
+		            { src: "./images/3.jpg"},
+		            { src: "./images/4.jpg"},
+		            { src: "./images/9.gif"}
+		        ], {
+		            effect: "fade",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
+		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
+		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
+		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
+		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
+		            width: 700,
+		            height: 430
+		        });
+	        }else{
+				$("#wrapper1").jPicture([
 		            { src: "./images/1.jpg"},
 		            { src: "./images/2.jpg"},
 		            { src: "./images/3.jpg"},
@@ -164,16 +204,39 @@
 		            width: 800,
 		            height: 450
 		        });
-		    })
+			}
+	    })
 	</script>
 	<div id="wrapper1"></div>
 
 	<div class="box1" align="center"><img src="./images/2.gif"><a href="https://dwz.cn/j5xNRYXX" target="blank"><img src="./images/3.gif" title="快来看看1989巡演(〃'▽'〃)"></a><img src="./images/2.gif"></div>
 
 	<script>
-		    $(function () {
-
-		        $("#wrapper2").jPicture([
+	    $(function () {
+	    	var ua = navigator.userAgent;
+	        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+	        isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+	        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+	        isMobile = isIphone || isAndroid;
+	        //判断
+	        if(isMobile){
+	            $("#wrapper2").jPicture([
+		            { src: "./images/5.jpg"},
+		            { src: "./images/6.jpg"},
+		            { src: "./images/7.jpg"},
+		            { src: "./images/8.jpg"},
+		            { src: "./images/5.gif"}
+		        ], {
+		            effect: "fade",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
+		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
+		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
+		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
+		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
+		            width: 700,
+		            height: 500
+		        });
+	        }else{
+	        	$("#wrapper2").jPicture([
 		            { src: "./images/5.jpg"},
 		            { src: "./images/6.jpg"},
 		            { src: "./images/7.jpg"},
@@ -188,13 +251,13 @@
 		            width: 800,
 		            height: 500
 		        });
-
-		    })
+	        }
+	        
+	    })
 	</script>
 	<div id="wrapper2"></div>
 
 	<script type="text/javascript">
-
 		var new_scroll_position = 0;
 		var last_scroll_position;
 		var header = document.getElementById("header");
@@ -217,6 +280,18 @@
 
 		  new_scroll_position = last_scroll_position;
 		});
+	</script>
+	<script>
+		var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+        isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+        isMobile = isIphone || isAndroid;
+        //判断
+        if(isMobile){
+            $("#wrapper1").css.("width","80%");
+            $("#wrapper2").css.("width","80%");
+        }
 	</script>
 
 	<div class="box1" align="center"><img src="./images/4.gif"><a href="https://dwz.cn/li61cS4J" target="blank"><img src="./images/3.gif" title="最鲜Reputation巡演"></a><img src="./images/4.gif"></div>

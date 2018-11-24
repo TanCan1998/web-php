@@ -12,11 +12,6 @@
             background-size:100%;
             background-attachment:fixed;
         }
-		/*body {
-		  min-height: 95vh;
-		  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-		  background-color:#20CECE;
-		}*/
 		ul{
 			list-style-type:none;
 			margin:0;
@@ -45,6 +40,11 @@
 		a:active{
 			width:140px;
 		}
+		@media only screen and (max-width: 500px) {
+	        html{
+	            background-size:272%;
+	        }
+	    }
 	</style>
 </head>
 <body>
@@ -62,7 +62,8 @@
 			<li><a title="首页" href="../">Home</a></li>
 			<li><a title="编辑新闻" href="./news/">News</a></li>
 			<li><a title="编辑帖子" href="./posts/">Posts</a></li>
-			<li><a title="审核评论" href="#about">Comments</a></li>
+			<li><a title="管理图片(Pictures of Posts)" href="./posts/pic/">Pictures</a></li>
+			<li><a title="审核评论(Comment of Posts)" href="#about">Comments</a></li>
 		</ul>
 		<h1><?php echo '管理员：',$username; ?></h1>
 		<h2><?php echo 'ID：',$userid; ?></h2>

@@ -135,7 +135,7 @@
             }
             function delete1(aa){
                 var str=aa;
-                if(confirm("确认删除此帖？\n此操作将会删除此贴相关的评论哦ヾ(ｏ･ω･)ﾉ")){ 
+                if(confirm("确认删除此帖？\n此操作将会删除此贴相关的评论和图片哦ヾ(ｏ･ω･)ﾉ")){ 
                     location.href="delete.php?id="+aa;
                 }
             }

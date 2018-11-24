@@ -212,7 +212,7 @@
                 编辑帖子
             </h1>
             <div class="add">
-                <form name="form1" method="post" action="update.php?id=<?php echo $id; ?>">
+                <form name="form1" method="post" action="update.php?id=<?php echo $id; ?>" enctype="multipart/form-data">
                     <input type='text' style='display:none'/>
                     <input type="hidden" id="catalog" name="catalog" value="<?php echo $catalog; ?>">
                     <label for="title">
@@ -225,6 +225,11 @@
                     </label>
                     <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden" onkeydown="OnInput (event)"><?php echo $post->body; ?></textarea>
                     <br/>
+                    <input type="file" name="file" onchange="PreviewImage(this,'imgHeadPhoto','divPreview');" style="width:200px" />
+                    <div id="divPreview">
+                        <img id="imgHeadPhoto" src="noperson.jpg" style="width: 400px; border: solid 1px #d2e2e2;"
+                            alt="" />
+                    </div>
                     <label for="catalog">
                         catalog
                     </label>
@@ -317,5 +322,6 @@
                 setInterval(time,12000);//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
             }
         </script>
+        <script src="../../js/uploadpic.js"></script>
     </body>
 </html>

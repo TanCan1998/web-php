@@ -26,19 +26,46 @@
     $query=$dbb->prepare(" delete from i_posts where id = :id");
     $query->bindValue(':id',$id,PDO::PARAM_INT);
     if(!$query->execute()){
-      echo "错误";
-      echo '<br>';
-  	}
-    $query=$dbb->prepare(" delete from i_comments where post_id = :id");
-    $query->bindValue(':id',$id,PDO::PARAM_INT);
-    if(!$query->execute()){
-      echo "错误";
-      echo '<br>';
-    }else{
       echo '
-      <div align="center">
-        <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #FFEE00;font-size:60px;font-weight:900">☺删除成功☺</p>
-      </div>';
+            <div align="center">
+                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">删除帖子出错!</p>
+            </div>';
+  	}else{
+      $query=$dbb->prepare(" delete from i_comments where post_id = :id");
+      $query->bindValue(':id',$id,PDO::PARAM_INT);
+      if(!$query->execute()){
+        echo '
+            <div align="center">
+                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">删除评论出错!</p>
+            </div>';
+      }else{
+        $query=$dbb->prepare("select * from i_pic where post_id = :id");
+        $query->bindValue(':id',$id,PDO::PARAM_INT);
+        if(!$query->execute()){
+          echo '
+            <div align="center">
+              <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">查找图片出错!</p>
+            </div>';
+        }else{
+          while ($row = $query->fetch(PDO::FETCH_NUM)) {
+            $filename=$_SERVER['DOCUMENT_ROOT'] ."./posts/pic/". $row[1];
+            unlink($filename);
+          }
+          $query=$dbb->prepare(" delete from i_pic where post_id = :id");
+          $query->bindValue(':id',$id,PDO::PARAM_INT);
+          if(!$query->execute()){
+            echo '
+              <div align="center">
+                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">删除图片路径出错!</p>
+              </div>';
+          }else{
+          echo '
+            <div align="center">
+              <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #FFEE00;font-size:60px;font-weight:900">☺删除成功☺</p>
+            </div>';
+          }
+        }
+      }
     }
 	?>
 	<script>

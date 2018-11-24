@@ -30,6 +30,11 @@
             .button:hover{
                 background-color:#20B6B1;
             }
+            @media only screen and (max-width: 500px) {
+                html{
+                    background-size:180%;
+                }
+            }
         </style>
     </head>
     <body>

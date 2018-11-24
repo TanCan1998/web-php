@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <title>
             Posts
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <script src="../js/jquery-1.11.0.min.js"></script>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
         <link rel="stylesheet" href="../css/animate.css"/>
@@ -46,10 +46,9 @@
             body {
                 overflow-x:hidden;
                 transition:1s ease;
-                min-height: 95vh;
                 background:#FFFFFF url(../images/<?php echo rand(1,11); ?>.jpg) no-repeat fixed top;
                 background-attachment:fixed;
-                background-size:1280px;
+                background-size:100%;
             }
             li{
                 list-style: none;
@@ -101,6 +100,10 @@
                 padding:20px;
                 border-radius:50px 50px 50px 50px;
                 box-shadow:0px 0px 25px #00FFFF inset;
+            }
+            #imgHeadPhoto{
+                width: 400px; 
+                border: solid 1px #d2e2e2;
             }
             .back a:link,a:visited{
                 color:#FFFFFF;
@@ -165,6 +168,19 @@
                 from{transform: rotate(180deg);}
                 to{transform: rotate(0deg);}
             }
+            @media only screen and (max-width: 500px) {
+                body{
+                    background-size:310%;
+                }
+                .add{
+                    margin:0px;
+                    width:80%;
+                    margin-bottom:13px;
+                }
+                #imgHeadPhoto{
+                    width:260px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -202,7 +218,7 @@
             <h1>发表新帖</h1>
             <div class="wow bounceIn" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.4s" data-wow-iteration="1">
             <div class="add">
-                <form name="form1" method="post" action="save.php?cata=<?php echo $_GET['catalog']; ?>">
+                <form name="form1" method="post" action="save.php?cata=<?php echo $_GET['catalog']; ?>" enctype="multipart/form-data">
                     <input type="hidden" id="catalog" name="catalog" value="<?php echo $catalog; ?>">
                     <input type="hidden" name="time" value = "<?php echo date('y-m-d H:i:s',time()); ?> "/>
                     <label for="title">Title</label>
@@ -212,6 +228,10 @@
                     <label for="body" style="">Body</label>
                     <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden" onkeydown="OnInput (event)"></textarea>
                     <br/>
+                    <input type="file" name="file" onchange="PreviewImage(this,'imgHeadPhoto','divPreview');" style="width:200px" />
+                    <div id="divPreview">
+                        <img id="imgHeadPhoto" src="noperson.jpg" alt="" />
+                    </div>
                     <label for="catalog">catalog</label>
                     <div class="sewv">
                         <div class="sewvtop"><span><?php echo $catalog; ?></span><em><img src="../images/selebom.png"></em></div>
@@ -233,7 +253,7 @@
         </div>
         </div>
         <div class="wow bounceIn" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.2s" data-wow-iteration="1">
-        <div class="back" align="center"><a href="javascript:history.back(-1)">返回</a></div>
+        <div class="back" align="center"><a href="./index.php?catalog=<?php echo $_GET['cata'];?>">返回</a></div>
         </div>
         <script type="text/javascript" src="../js/canvas-nest.min.js"></script>
         <script type="text/javascript" src="../js/textinputheight.js"></script>
@@ -262,27 +282,37 @@
         <script type="text/javascript" src="../js/music.js"></script>
         <script type="text/javascript">
             window.onload = function(){
-                MC.music({
-                    hasAjax:false,
-                    left:'89%',
-                    bottom:'10%',
-                    musicChanged:function(ret){
-                        // alert(ret.url);
-                        // getMusic_buffer(ret.url);
-                        // return;
-                        var data = ret.data;
-                        var index = ret.index;
-                        var imageUrl = data[index].img_url;
-                        var music_bg = document.getElementById('music-bg');
-                        music_bg.style.background = 'url('+imageUrl+')no-repeat';
-                        music_bg.style.backgroundSize = 'cover';
-                        music_bg.style.backgroundPosition = 'center 30%';
-                    },
-                    getMusicInfo:function(data){    
-                    },
-                    musicPlayByWebAudio:function(ret){    
-                    },
-                });
+                var ua = navigator.userAgent;
+                var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+                isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+                isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+                isMobile = isIphone || isAndroid;
+                //判断
+                if(isMobile){
+                    ;
+                }else{
+                    MC.music({
+                        hasAjax:false,
+                        left:'89%',
+                        bottom:'10%',
+                        musicChanged:function(ret){
+                            // alert(ret.url);
+                            // getMusic_buffer(ret.url);
+                            // return;
+                            var data = ret.data;
+                            var index = ret.index;
+                            var imageUrl = data[index].img_url;
+                            var music_bg = document.getElementById('music-bg');
+                            music_bg.style.background = 'url('+imageUrl+')no-repeat';
+                            music_bg.style.backgroundSize = 'cover';
+                            music_bg.style.backgroundPosition = 'center 30%';
+                        },
+                        getMusicInfo:function(data){    
+                        },
+                        musicPlayByWebAudio:function(ret){    
+                        },
+                    });
+                }
                 var i=0;
                 var j=0;
                 function time(){
@@ -290,8 +320,8 @@
                     document.body.style.backgroundImage="url(../images/"+j+".jpg)";
                     i++; 
                 }
-                setInterval(time,12000);//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
-                //
+                setInterval(time,12000);//setInterval()函数，按照指定的周期（按毫秒计）调用函数或表达式
+                //填充p标签
                 var el = document.getElementById('body');
                 el.value="<p></p>";
             }
@@ -300,5 +330,6 @@
         <script>
             new WOW().init();
         </script>
+        <script src="../js/uploadpic.js"></script>
     </body>
 </html>

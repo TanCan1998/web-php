@@ -110,15 +110,15 @@
         .catalog ul{
         	align-items:center;
         	width:96%;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            display:flex;
+            flex-direction:row;
+            flex-wrap:wrap;
         }
         .catalog li{
         	padding: 10px;
         	width:96%;
             border: 0px;
-            text-align: center;
+            text-align:center;
             margin-top: 4px;
             margin-bottom: 4px;
             flex:auto;  /*这是关键*/            
@@ -131,6 +131,10 @@
         }
         .catalog a:hover{
         	box-shadow:0px 0px 2px #840B9C inset,1px 1px 2px #840B9C;
+        }
+        .search{
+			width:80%;
+			margin:10px;
         }
         ::selection {
             background:#00FFFF;
@@ -148,12 +152,52 @@
 			color:#FFFFFF;
 			background-color:#E61AA6;
         }
+        @media only screen and (max-width: 500px) {
+        	h1{
+        		margin:4px;
+        	}
+        	.catalog{
+        		margin-left:2%;
+        		width:100%;
+        	}
+        	.catalog ul{
+        		width:98%;
+	        }
+            .catalog li{
+            	padding:2px;
+	        	width:120%;
+	        	margin-right:2px;          
+		    }
+	        .catalog a{
+	        	width: 100%;
+	        	margin: 1px;
+	            padding: 1px;
+	        }
+	        #scroll {
+	            top:65%; 
+	            right:1%;
+	        }
+	        .scrollItem{
+                margin:0px;
+                width:40px;
+                height:40px;
+                font-size:30px;
+            }
+            .search{
+				width:100%;
+				margin:10px;
+	        }
+	        .search label,input,button{
+	        	margin:0px;
+	        	padding:6px;
+	        }
+        }
  	</style>
 </head>
 <body>
 	<div align="center">
 		<h1>论坛</h1>
-		<div class="catalog" align="center">
+		<div class="catalog">
 			<ul>
 				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0s" data-wow-iteration="1"><li><a href="index.php?catalog=cata1" id="cata1">所有</a></li></div>
 				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.1s" data-wow-iteration="1"><li><a href="index.php?catalog=cata2" id="cata2">娱乐</a></li></div>
@@ -167,7 +211,7 @@
 			</ul>
 		</div>
 		<form name="form1" action="redict.php?catalog=<?php echo $_GET['catalog']; ?>" method="post">
-			<div style="width:80%;margin:10px">
+			<div class="search">
 			<label for="title" style="color:#E61AA6;font-style:italic">搜索Title</label>
 			<input id="t" name="title" class="awesomplete" list="mylist" autocomplete="off"/>
 			<button style="cursor:pointer;background-color:#E61AA6;color:#FFFFFF" type="submit" onclick="return check()">进入</button>
@@ -216,7 +260,7 @@
 			?>
 		</ul>
 	</div>
-	<div class="button" align="center"><a href="./new.php?catalog=<?php echo $catalog;?>">发布</a></div>
+	<div class="button" align="center"><a href="./new.php?catalog=<?php echo $catalog;?>&cata=<?php echo $_GET['catalog'];?>">发布</a></div>
 	<div class="button" align="center"><a href="../">首页</a></div>
 	<script>
 		function check(){

@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>编辑</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<link href="../../css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../css/bootstrap-float-label.css">
 	<link rel="stylesheet" type="text/css" href="../../css/shijian.css"/>

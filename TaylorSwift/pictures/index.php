@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 
 <html>
 
@@ -6,7 +6,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>一款震撼的图片展示的效果</title>
+<title>美霉图</title>
 
 <style type="text/css">
 
@@ -585,7 +585,6 @@ document.onmousemove = function(e)
   <img alt="" src="../images/4.jpg">
 
 
-
   <img alt="" src="../images/5.jpg">
 
   <img alt="" src="../images/6.jpg">
@@ -597,28 +596,22 @@ document.onmousemove = function(e)
 
   <img alt="" src="../images/9.jpg">
 
-  <img alt="" src="../images/1.jpg">
-
-  <img alt="" src="../images/2.jpg">
+  <img alt="" src="../images/10.jpg">
 
   <img alt="" src="../images/5.jpg">
 
   <img alt="" src="../images/6.jpg">
 
+
   <img alt="" src="../images/7.jpg">
 
   <img alt="" src="../images/8.jpg">
 
-
-  <img alt="" src="../images/9.jpg">
+  <img alt="" src="../images/11.jpg">
 
   <img alt="" src="../images/1.jpg">
-
-  <img alt="" src="../images/2.jpg">
 
 </div>
-
-
 
 <script type="text/javascript">
 
@@ -633,4 +626,3 @@ document.onmousemove = function(e)
 </body>
 
 </html>
-

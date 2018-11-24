@@ -16,16 +16,13 @@
                 background-size:1270px;
             }
             ::selection {
-                background:#d3d3d3; 
-                color:#555555;
+                background:#d3d3d3;
             }
             ::-moz-selection {
-                background:#d3d3d3; 
-                color:#555555;
+                background:#d3d3d3;
             }
             ::-webkit-selection {
-                background:#d3d3d3; 
-                color:#555555;
+                background:#d3d3d3;
             }
     		ul{
                 list-style-type:none;
@@ -62,6 +59,7 @@
                 margin-bottom:20px;
             }
             .post{
+                transition:1s linear;
                 width:60%; 
                 margin:25px;
                 padding:20px;
@@ -139,6 +137,36 @@
                 color:#A61ABD;
                 box-shadow:0px 0px 13px #00FFFF inset,0px 0px 8px #00FFFF;
             }
+            @media only screen and (max-width: 500px) {
+                body{
+                    width:95%;
+                }
+                .post{
+                    margin:0px;
+                    width:80%;
+                    margin-bottom:13px;
+                }
+                .comment{
+                    margin:0px;
+                    width:80%;
+                    margin-bottom:13px;
+                }
+                .add{
+                    margin:0px;
+                    width:80%;
+                    margin-bottom:13px;
+                }
+                #scroll {
+                    top:65%; 
+                    right:1%;
+                }
+                .scrollItem{
+                    margin:0px;
+                    width:40px;
+                    height:40px;
+                    font-size:30px;
+                }
+            }
         </style>
         <script src="../js/wow.min.js"></script>
         <script>
@@ -157,7 +185,7 @@
         ?>
         <div align="center">
             <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
-            <div class="post">
+            <div class="post" id="post">
                 <h1>帖子</h1>
                 <h2><?php echo $row[1];?></h2>
                 <p style="margin:0px;font-size:14px;color:#E61AA6;font-style:italic">
@@ -254,6 +282,41 @@
                       document.form1.submit();
                     }
             }
+        </script>
+        <script>
+            <?php 
+                $query=$dbb->prepare("select count(*) from i_pic where post_id=:id");
+                $query->bindValue(':id',$id,PDO::PARAM_STR);
+                $query->execute();
+                $rows = $query->fetch();
+                $rowCount = $rows[0];
+                if($rowCount>0){
+                    echo "window.onload = function(){
+                        var picArr = new Array();";
+                    $query=$dbb->prepare("select * from i_pic where post_id= :id");
+                    $query->bindValue(':id',$id,PDO::PARAM_STR);
+                    $query->execute();
+                    while ($row = $query->fetch(PDO::FETCH_NUM)) {
+                        echo "picArr.push(\"$row[1]\");";
+                    }
+                    echo   "var i=0;
+                            var len=picArr.length;
+                            $(\"#post\").css(\"background\",\"#ffffff url(./pic/\"+picArr[i%len]+\") no-repeat center\");
+                            $(\"#post\").css(\"background-size\",\"120%\");
+                            $(\"#post\").css(\"color\",\"#ffffff\");
+                            $(\"#post\").css(\"text-shadow\",\"2px 2px 6px #000000,0px 0px 2px #ffffff\");
+                            i++;
+                            function time(){
+                                $(\"#post\").css(\"background\",\"#ffffff url(./pic/\"+picArr[i%len]+\") no-repeat center\");
+                                $(\"#post\").css(\"background-size\",\"120%\");
+                                $(\"#post\").css(\"color\",\"#ffffff\");
+                                $(\"#post\").css(\"text-shadow\",\"2px 2px 6px #000000,0px 0px 2px #ffffff\");
+                                i++; 
+                            }
+                            setInterval(time,6000);}";
+                }
+            ?>
+            //setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
         </script>
     </body>
 </html>

@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<title>News</title>
 	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
 	<style type="text/css">
@@ -40,12 +41,12 @@
 			text-transform:uppercase;
 			border-radius:30px;
 			padding:8px;
+			margin:2px;
 		}
 		a:hover,a:active{
 			width:200px;
 			background-color:#006666;
 			border-radius:30px;
-			padding:8px;
 		}
 		.time{
 			font-style:italic;
@@ -89,6 +90,31 @@
 	        color:#006666;
 	        box-shadow:0px 0px 13px #006666 inset,0px 0px 8px #006666;
 	    }
+	    @media only screen and (max-width: 500px) {
+        	h1{
+        		font-size:20px;
+        		margin:4px;
+        	}
+        	a:link,a:visited{
+				width:80px;
+			}
+			a:hover,a:active{
+				width:100px;
+			}
+	        #scroll {
+	            top:65%; 
+	            right:1%;
+	        }
+	        .scrollItem{
+                margin:0px;
+                width:40px;
+                height:40px;
+                font-size:30px;
+            }
+            .body{
+            	width:88%;
+            }
+       }
 	</style>
 </head>
 <body>
@@ -102,7 +128,7 @@
 		$query->execute();
 		$news  = $query->fetchObject();
 	?>
-	<div align="center">
+	<div class="news" align="center">
 		<h1><?php echo $news->title; ?></h1>
 			<div class="time">
 				<p><?php echo date('Y-m-d H:i',strtotime($news->time)); ?></p>

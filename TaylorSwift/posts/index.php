@@ -197,7 +197,7 @@
 <body>
 	<div align="center">
 		<h1>论坛</h1>
-		<div class="catalog">
+		<div class="catalog" align="center">
 			<ul>
 				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0s" data-wow-iteration="1"><li><a href="index.php?catalog=cata1" id="cata1">所有</a></li></div>
 				<div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.1s" data-wow-iteration="1"><li><a href="index.php?catalog=cata2" id="cata2">娱乐</a></li></div>
@@ -228,8 +228,8 @@
 					$query->bindValue(':catalog',$catalog,PDO::PARAM_INT);
 				}
 				$query->execute();
-				while ($row = $query->fetch(PDO::FETCH_NUM)) {
-					echo '<option>'.$row[0].'</option>';
+				while ($posts = $query->fetchObject()) {
+					echo '<option>'.$posts->title.'</option>';
 				}
 			?>
 		</datalist>  
@@ -240,13 +240,13 @@
 				$query->execute();
 				$check_num=0;
 				$delay=0.0;
-				while ($row = $query->fetch(PDO::FETCH_NUM)) {
-					if(mb_substr($_GET['catalog'],4,1)==$row[4]||mb_substr($_GET['catalog'],4,1)=="1"){
+				while ($posts = $query->fetchObject()) {
+					if(mb_substr($_GET['catalog'],4,1)==$posts->catalog||mb_substr($_GET['catalog'],4,1)=="1"){
 					echo "
 					<div class=\"wow $randValue1\" data-wow-duration=\"1s\" data-wow-offset=\"10\" data-wow-delay=\"$delay"."s"."\"  data-wow-iteration=\"1\">	
 					<li style=\"padding:5px;\">		    
-			    	<a href=\"show.php?id=$row[0]&catalog=$_GET[catalog]\" style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis\" title=\"创建于$row[3]\">
-			    	$row[1]
+			    	<a href=\"show.php?id=$posts->id&catalog=$_GET[catalog]\" style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis\" title=\"创建于$posts->created_at\">
+			    	$posts->title
 			        </a> 
 			        </li>
 			        </div>";

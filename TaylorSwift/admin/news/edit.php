@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<title>编辑</title>
 	<link href="../../css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../css/bootstrap-float-label.css">
@@ -20,7 +21,7 @@
 		}
 		.body{
 			width:500px; 
-			height:570px;
+			height:540px;
 			padding:20px;
 			background-color:#FFFFFF;
 			border-radius:30px 30px 30px 30px;
@@ -55,6 +56,25 @@
         ::-webkit-selection {
             background:#BDE61A; 
             color:#555555;
+        }
+        @media only screen and (max-width: 500px) {
+            body{
+                width:100%;
+                min-height:auto;
+            }
+			.body{
+				width:300px; 
+				height:550px;
+				padding:20px;
+			}
+			.jsbox{//时间控件样式
+	        	max-width: 300px;
+	        	text-align: left;
+	        	margin: 0 auto;
+	        }
+	        h1{
+	        	font-size:25px;
+	        }
         }
 	</style>
 	<script>
@@ -95,7 +115,7 @@
 					</div>
 				<div class="form-group floating-control-group">
 					<label for="txtFloatingComments">Body</label>
-					<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none;" onkeydown="OnInput (event)"><?php echo $news->body; ?></textarea>
+					<textarea class="form-control" id="txtFloatingComments" rows="11" name="body" style="resize:none;" onkeydown="OnInput (event)"><?php echo $news->body; ?></textarea>
 				</div>
 				<button type="submit" class="btn btn-primary" onclick="return check()"> 提 交 </button>
 			</form>
@@ -114,7 +134,7 @@
     	$("#timein").shijian()
 	</script>
 	<script>
-        function check(){
+		function check(){
             var obj1 = document.getElementById("txtFloatingUsername");
             var str1 = document.form1.txtFloatingUsername.value;
             var obj2 = document.getElementById("txtFloatingComments");
@@ -122,7 +142,7 @@
             if (str1.replace(/\s/g, "")=="") {
               	alert("标题不能为空!");
             }
-            else if (str2.replace(/\s/g, "")=="") 
+            else if(str2.replace(/\s/g, "")=="") 
               	alert("内容不能为空!");
             else {
               	document.form1.submit();

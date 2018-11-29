@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <title>
             Posts
         </title>
@@ -107,6 +108,10 @@
                 border-radius:50px 50px 50px 50px;
                 box-shadow:0px 0px 25px #00FFFF inset;
             }
+            #imgHeadPhoto{
+                width: 400px; 
+                border: solid 1px #d2e2e2;
+            }
             .back a:link,a:visited{
                 color:#FFFFFF;
                 width:150px;
@@ -170,6 +175,19 @@
                 from{transform: rotate(180deg);}
                 to{transform: rotate(0deg);}
             }
+            @media only screen and (max-width: 500px) {
+                body{
+                    background-size:310%;
+                }
+                .add{
+                    margin:0px;
+                    width:80%;
+                    margin-bottom:13px;
+                }
+                #imgHeadPhoto{
+                    width:260px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -177,7 +195,7 @@
             <?php
                 require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
                 $id    = $_GET['id'];
-                $query=$dbb->prepare("select * from i_posts where id = :id");
+                $query =$dbb->prepare("select * from i_posts where id = :id");
                 $query->bindValue(':id',$id,PDO::PARAM_INT);
                 $query->execute();
                 $post  = $query->fetchObject();
@@ -227,8 +245,7 @@
                     <br/>
                     <input type="file" name="file" onchange="PreviewImage(this,'imgHeadPhoto','divPreview');" style="width:200px" />
                     <div id="divPreview">
-                        <img id="imgHeadPhoto" src="noperson.jpg" style="width: 400px; border: solid 1px #d2e2e2;"
-                            alt="" />
+                        <img id="imgHeadPhoto" src="noperson.jpg" alt="" />
                     </div>
                     <label for="catalog">
                         catalog
@@ -290,28 +307,37 @@
         <script type="text/javascript" src="../../js/music.js"></script>
         <script type="text/javascript">
             window.onload = function(){
-                MC.music({
-                    hasAjax:false,
-                    left:'89%',
-                    bottom:'85%',
-                    musicChanged:function(ret){
-                        // alert(ret.url);
-                        // getMusic_buffer(ret.url);
-                        // return;
-                        var data = ret.data;
-                        var index = ret.index;
-                        var imageUrl = data[index].img_url;
-                        
-                        var music_bg = document.getElementById('music-bg');
-                        music_bg.style.background = 'url('+imageUrl+')no-repeat';
-                        music_bg.style.backgroundSize = 'cover';
-                        music_bg.style.backgroundPosition = 'center 30%';
-                    },       
-                    getMusicInfo:function(data){                      
-                    },           
-                    musicPlayByWebAudio:function(ret){                      
-                    },
-                });
+                var ua = navigator.userAgent;
+                var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+                isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+                isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+                isMobile = isIphone || isAndroid;
+                //判断
+                if(isMobile){
+                    ;
+                }else{
+                    MC.music({
+                        hasAjax:false,
+                        left:'89%',
+                        bottom:'10%',
+                        musicChanged:function(ret){
+                            // alert(ret.url);
+                            // getMusic_buffer(ret.url);
+                            // return;
+                            var data = ret.data;
+                            var index = ret.index;
+                            var imageUrl = data[index].img_url;
+                            var music_bg = document.getElementById('music-bg');
+                            music_bg.style.background = 'url('+imageUrl+')no-repeat';
+                            music_bg.style.backgroundSize = 'cover';
+                            music_bg.style.backgroundPosition = 'center 30%';
+                        },
+                        getMusicInfo:function(data){    
+                        },
+                        musicPlayByWebAudio:function(ret){    
+                        },
+                    });
+                }
                 var i=0;
                 var j=0;
                 function time(){

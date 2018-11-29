@@ -2,15 +2,35 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <title>
             更新
         </title>
         <style>
             body{
 	            background:#FFFFFF url(../../images/<?php echo rand(1,10); ?>.jpg) no-repeat fixed top;
-	            background-size:1280px;
+	            background-size:100%;
 	            background-attachment:fixed;
 	            overflow:hidden;
+            }
+            p{
+                letter-spacing:16px;
+                margin-top:288px;
+                color:#FFFFFF;
+                font-size:60px;
+                font-weight:900
+            }
+            @media only screen and (max-width: 500px) {
+                body{
+                    background-size:310%;
+                }
+                p{
+                  letter-spacing:10px;
+                  margin-top:188px;
+                  color:#FFFFFF;
+                  font-size:35px;
+                  font-weight:900;
+                }
             }
         </style>
     </head>
@@ -36,7 +56,7 @@
                 echo '<br>';
             }else{
 		    	echo '<div align="center">
-                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #00FFFF;font-size:60px;font-weight:900">☺修改成功☺</p>
+                <p style="text-shadow:4px 4px 16px #00FFFF;">☺修改成功☺</p>
                 </div>';
                 echo '<script language="JavaScript">setTimeout(function(){location.href="./";},"2000");</script>';
 		  	};

@@ -19,7 +19,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<title>Home—iSwiftie</title>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
@@ -40,8 +39,7 @@
 		  padding: 0;
 		}
 		html { 
-			min-height: 100%;
-			height: 350vh; 
+			height:2100px;
 		}
 		body {
 		  height: 100%;
@@ -125,8 +123,8 @@
 		}
 		@media only screen and (max-width: 500px) {
             html{
-            	height:200%;
-                width:200%;
+            	height:50%;
+                width:50%;
             }
             .iframe_page{
             	width:700px;
@@ -179,7 +177,7 @@
 		            { src: "./images/4.jpg"},
 		            { src: "./images/9.gif"}
 		        ], {
-		            effect: "fade",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
+		            effect: "slide",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
 		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
 		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
 		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
@@ -233,7 +231,7 @@
 		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
 		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
 		            width: 700,
-		            height: 500
+		            height: 450
 		        });
 	        }else{
 	        	$("#wrapper2").jPicture([

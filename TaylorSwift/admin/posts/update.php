@@ -2,13 +2,33 @@
 <html lang="cn">
 <head>
 	<meta charset="UTF-8">
-	<title>PostSave</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>PostUpdate</title>
     <style>
         body{
             background:#FFFFFF url(../../images/<?php echo rand(1,10); ?>.jpg) no-repeat fixed top;
             background-size:100%;
             background-attachment:fixed;
             overflow:hidden;
+        }
+        p{
+            letter-spacing:16px;
+            margin-top:288px;
+            color:#FFFFFF;
+            font-size:60px;
+            font-weight:900
+        }
+        @media only screen and (max-width: 500px) {
+            body{
+                background-size:310%;
+            }
+            p{
+              letter-spacing:10px;
+              margin-top:188px;
+              color:#FFFFFF;
+              font-size:35px;
+              font-weight:900;
+            }
         }
     </style>
 </head>
@@ -58,7 +78,7 @@
         $check_pic=0;
         if(!$query->execute()){
             echo '<div align="center">
-                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">帖子修改出错!</p>
+                <p style="text-shadow:4px 4px 16px #E61A00;">帖子修改出错!</p>
             </div>';
         }else{
             if(empty($_FILES['file']['tmp_name'])){
@@ -68,9 +88,9 @@
             }else{
                 //没有出错
                 //加限制条件
-                //判断上传文件类型图片且大小不超过102400000B
+                //判断上传文件类型图片且大小不超过20000000B
                 $filetype = array("image/jpg","image/jpeg","image/gif","image/bmp","image/png");
-                if(in_array($_FILES["file"]["type"]."", $filetype)&&$_FILES["file"]["size"]<102400000){
+                if(in_array($_FILES["file"]["type"]."", $filetype)&&$_FILES["file"]["size"]<20000000){
                     //防止文件名重复
                     $filename =time().rand(0,9).$_FILES["file"]["name"];
                     $filepath =$_SERVER['DOCUMENT_ROOT'] ."./posts/pic/". $filename;
@@ -96,12 +116,12 @@
             }
             if($check_pic==0){
             echo '<div align="center">
-                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61AA6;font-size:60px;font-weight:900">☺更新成功☺</p>
+                <p style="text-shadow:4px 4px 16px #E61AA6;">☺更新成功☺</p>
             </div>';
             echo '<script language="JavaScript">setTimeout(function(){location.href="./";},"2000");</script>';
             }else{
                 echo '<div align="center">
-                <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">图片储存出错!</p>
+                <p style="text-shadow:4px 4px 16px #E61A00;">图片储存出错!</p>
             </div>';
             }
         };

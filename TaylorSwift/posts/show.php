@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <title>
             Posts
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
         <link rel="stylesheet" href="../css/animate.css">
         <style type="text/css">
@@ -13,7 +13,7 @@
             html{
                 font-family:"微软雅黑";
                 background:#FFFFFF url(../images/background1.jpg) no-repeat fixed top;
-                background-size:1270px;
+                background-size:100%;
             }
             ::selection {
                 background:#d3d3d3;
@@ -138,6 +138,10 @@
                 box-shadow:0px 0px 13px #00FFFF inset,0px 0px 8px #00FFFF;
             }
             @media only screen and (max-width: 500px) {
+                html{
+                    background:#FFFFFF url(../images/mbackground.jpg) no-repeat fixed top;
+                    background-size:120%;
+                }
                 body{
                     width:95%;
                 }
@@ -181,16 +185,16 @@
             $query=$dbb->prepare("select * from i_posts where id = :id");
             $query->bindValue(':id',$id,PDO::PARAM_INT);
             $query->execute();
-            $row = $query->fetch(PDO::FETCH_NUM);
+            $posts = $query->fetchObject();
         ?>
         <div align="center">
             <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
             <div class="post" id="post">
                 <h1>帖子</h1>
-                <h2><?php echo $row[1];?></h2>
+                <h2><?php echo $posts->title;?></h2>
                 <p style="margin:0px;font-size:14px;color:#E61AA6;font-style:italic">
                     <?php
-                        switch ($row[4]) {
+                        switch ($posts->catalog) {
                             case 2:
                                 echo "娱乐";
                                 break;
@@ -218,8 +222,8 @@
                         }; 
                     ?>
                 </p>
-                <span><?php echo date('Y-m-d H:i',strtotime($row[3])); ?></span>
-                <div class="content" style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $row[2] ?></div>
+                <span><?php echo date('Y-m-d H:i',strtotime($posts->created_at)); ?></span>
+                <div class="content" style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $posts->body ?></div>
             </div>
             </div>
             <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
@@ -229,14 +233,14 @@
                     $query = $dbb->prepare("select * from i_comments where post_id = :post_id order by id");
                     $query->bindValue(':post_id',$id,PDO::PARAM_INT);
                     $query->execute();
-                    while($row = $query->fetch(PDO::FETCH_NUM)){
+                    while($comment = $query->fetchObject()){
                 ?>
                 <div class="wow <?php echo $randValue; ?>" data-wow-duration="1.5s" data-wow-offset="10"  data-wow-iteration="1">
                 <div class="comment" style="box-shadow: 8px 8px  rgb(<?php echo rand(0,255).','.rand(0,255).','.rand(0,255); ?>)">
                     <li>
-                        <p><?php echo $row[1];?></p>
-                        <p style="letter-spacing:2px;font-weight:300"><?php echo $row[2];?></p>
-                        <span><?php echo date('Y-m-d H:i',strtotime($row[3]));?></span>
+                        <p><?php echo $comment->title;?></p>
+                        <p style="letter-spacing:2px;font-weight:300"><?php echo $comment->body;?></p>
+                        <span><?php echo date('Y-m-d H:i',strtotime($comment->created_at));?></span>
                     </li>
                 </div>
                 </div>

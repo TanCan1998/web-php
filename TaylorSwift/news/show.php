@@ -144,15 +144,15 @@
 			$next=$id+1;
 			$query->bindValue(':id',$last,PDO::PARAM_INT);
 			$query->execute();
-			$row=$query->fetch(PDO::FETCH_NUM);
-			if($row!=null){
-				echo "<a href=\"show.php?id={$last}\" title=\"$row[1]\">上一篇</a>";
+			$news=$query->fetchObject();
+			if($news!=null){
+				echo "<a href=\"show.php?id={$last}\" title=\"$news->title\">上一篇</a>";
 			}
 			$query->bindValue(':id',$next,PDO::PARAM_INT);
 			$query->execute();
-			$row=$query->fetch(PDO::FETCH_NUM);
-			if($row!=null){
-				echo "<a href=\"show.php?id={$next}\" title=\"$row[1]\">下一篇</a>";
+			$news=$query->fetchObject();
+			if($news!=null){
+				echo "<a href=\"show.php?id={$next}\" title=\"$news->title\">下一篇</a>";
 			}
 			else{
 				echo "<a href=\"#\">没有下一篇了╭(╯^╰)╮</a>";

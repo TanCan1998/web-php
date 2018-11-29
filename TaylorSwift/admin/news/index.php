@@ -61,10 +61,10 @@
 		require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
 		$query=$dbb->prepare("select * from i_news order by id");
         $query->execute(); 
-		while ($row = $query->fetch(PDO::FETCH_NUM)) {
+		while ($news = $query->fetchObject()) {
 	?>
-		<li><a href="edit.php?id=<?php echo $row[0]; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $row[3];?>">
-			<?php echo '@',$row[1];?>
+		<li><a href="edit.php?id=<?php echo $news->id; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $news->time;?>">
+			<?php echo '@',$news->title;?>
 	    </a></li>
 	<?php }?>
 	</ul>

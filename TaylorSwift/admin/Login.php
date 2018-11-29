@@ -47,19 +47,18 @@ if(isset($_POST['submit1'])){
 
 $username = htmlspecialchars($_POST['username']);
 
-$password = $_POST['password'];
-
 //包含数据库连接文件
 
 require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
 
 //检测用户名及密码是否正确
 
-$check_query = $dbb->prepare("select userid from i_admin where username= :username and password= :password limit 1");
+$check_query = $dbb->prepare("select * from i_admin where username= :username");
 $check_query->bindValue(':username',$username,PDO::PARAM_STR);
-$check_query->bindValue(':password',$password,PDO::PARAM_STR);
 $check_query->execute();
-if ($row = $check_query->fetch(PDO::FETCH_NUM)) {
+$row = $check_query->fetch(PDO::FETCH_NUM);
+$hash = $row[2];
+if (password_verify($_POST['password'], $hash)) {
 
     //登录成功
 
@@ -90,7 +89,7 @@ if ($_GET['action'] == "logout") {
 
     echo '<div align="center">注销成功！点击此处 <a href="./">登录</a><br>';
 
-    echo '点击此处返回<a href="../index.php">首页</a></div>';
+    echo '点击此处返回<a href="../">首页</a></div>';
 
     exit;
 

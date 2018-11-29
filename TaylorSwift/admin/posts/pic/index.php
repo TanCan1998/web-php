@@ -10,10 +10,10 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<title>管理图片</title>
+    <title>管理图片</title>
 	<script src="../../../js/jquery.min.js"></script>
 	<style>
-		body{
+        body{
 			transition:2s ease;
             font-family:"微软雅黑";
             background:#A0EEE1;
@@ -45,7 +45,7 @@
             transition:2s ease;
             background:#A0EEE1;
         	font-size:20px;
-            border-radius:10px;
+            border-radius:20px;
         }
         td{
             height:200px;
@@ -72,6 +72,7 @@
             cursor:pointer;
             border-style:none;
             box-shadow:1px 1px 6px #000000;
+            border-radius:100px;
         }
         #button:hover{
             box-shadow:1px 1px 3px #000000,-1px -1px 3px #000000 inset;
@@ -97,18 +98,31 @@
             box-shadow:0px 0px 10px 3px #7A7A7A,0px 0px 3px 1px #7A7A7A inset;
         }
         @media only screen and (max-width: 500px) {
+            html{
+                height:100%;
+                width:300px;
+            }
             .main{
                 margin:0px;
-                width:200%;
+                width:336px;
             }
             .back{
-                padding:20px;
+                padding:15px;
                 top:70%; 
                 right:4%;
-                width:80px;
-                height:40px; 
-                font-size:36px;
-                border-radius:50px;
+                width:19px;
+                height:42px; 
+                font-size:16px;
+                border-radius:60px;
+                font-weight:900;
+                letter-spacing:0px;
+            }
+            table{
+                width:335px;
+            }
+            td{
+                width:160px;
+                height:100px;
             }
         }
     </style>
@@ -119,14 +133,14 @@
 			<thead>
 				<tr>
 					<th style="width:60%">图片</th>
-					<th style="width:20%">所属帖子</th>
-					<th style="width:20%">操作</th>
+					<th style="width:25%">所属帖子</th>
+					<th style="width:15%">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php 
 					require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
-					$query=$dbb->prepare("select path,title,i_pic.id from i_pic,i_posts where post_id=i_posts.id order by post_id");
+					$query=$dbb->prepare("select path,title,i_pic.id from i_pic,i_posts where post_id=i_posts.id order by post_id,i_pic.id desc");
 					if(!$query->execute()){
 						echo '<div align="center">
                 <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #000000;font-size:60px;font-weight:900">出错！</p>
@@ -140,9 +154,9 @@
 							}else{
 								echo '<tr class="Even">';
 							}
-							echo "<td><img src=\"$imgPath\"></td>";
+							echo "<td><a href=\"$imgPath\"><img src=\"$imgPath\"></a></td>";
 							echo "<td>$row[1]</td>";
-							echo "<td id=\"button\" onclick=\"conf($row[2])\">删</td>";
+							echo "<td id=\"button\" onclick=\"conf($row[2])\"><img style=\"width:40%;height:26%\" src=\"../../../images/delete.png\"></td>";
 							echo '</tr>';
 							$i++;
 						}
@@ -151,7 +165,7 @@
 			</tbody>
 		</table>
     </div>
-    <div class="back" onclick="location='../../manage.php'">Back</div>
+    <div class="back" onclick="location='../../manage.php'">返回</div>
 	<script type="text/javascript">
         window.onload = function(){
         	var i=0;

@@ -18,7 +18,7 @@
 		}
 		.body{
 			width:500px; 
-			height:570px;
+			height:540px;
 			padding:20px;
 			background-color:#FFFFFF;
 			border-radius:30px 30px 30px 30px;
@@ -48,6 +48,25 @@
         ::-webkit-selection {
             background:#BDE61A; 
             color:#555555;
+        }
+        @media only screen and (max-width: 500px) {
+            body{
+                width:100%;
+                min-height:auto;
+            }
+			.body{
+				width:300px; 
+				height:550px;
+				padding:20px;
+			}
+			.jsbox{//时间控件样式
+	        	max-width: 300px;
+	        	text-align: left;
+	        	margin: 0 auto;
+	        }
+	        h1{
+	        	font-size:25px;
+	        }
         }
 	</style>
 	<script>
@@ -81,7 +100,7 @@
 				</div>
 				<div class="form-group floating-control-group">
 				<label for="txtFloatingComments">Body</label>
-				<textarea class="form-control" id="txtFloatingComments" rows="12" name="body" style="resize:none" onkeydown="OnInput (event)"></textarea>
+				<textarea class="form-control" id="txtFloatingComments" rows="11" name="body" style="resize:none" onkeydown="OnInput (event)"></textarea>
 				</div>
 				<button type="submit" class="btn btn-primary" onclick="return check()"> 提 交 </button>
 			</form>

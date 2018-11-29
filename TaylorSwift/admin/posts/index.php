@@ -28,6 +28,8 @@
                     background-color:#99AA55;
                 }
                 td{
+                    text-overflow:ellipsis;
+                    overflow:hidden;
                     padding:6px;
                     background-color:#BDE61A;
                     width:200px;
@@ -81,17 +83,17 @@
                 require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php'; 
                 $query=$dbb->prepare("select * from i_posts order by id");
                 $query->execute(); 
-                while ($row = $query->fetch(PDO::FETCH_NUM)) { ?>
+                while ($posts = $query->fetchObject()) { ?>
                     <tr>
                         <td>
                             <?php 
-                                if(strlen($row[1])>11) 
-                                    echo mb_substr($row[1],0,11)."...";
-                                else echo $row[1];
+                                if(strlen($posts->title)>11) 
+                                    echo mb_substr($posts->title,0,11)."...";
+                                else echo $posts->title;
                             ?>
                         </td>
                         <td style="width:100px"><?php 
-                                switch ($row[4]) {
+                                switch ($posts->catalog) {
                                     case 2:
                                         echo "娱乐";
                                         break;
@@ -118,10 +120,10 @@
                                         break;
                                 }; 
                         ?></td>
-                        <td><?php echo $row[3] ?></td>
+                        <td><?php echo $posts->created_at; ?></td>
                         <td style="width:100px">
-                          <a href="edit.php?id=<?php echo $row[0];?>">改</a>
-                          <a href="javascript:;" onclick="delete1(<?php echo $row[0];?>)">删</a>
+                          <a href="edit.php?id=<?php echo $posts->id;?>">改</a>
+                          <a href="javascript:;" onclick="delete1(<?php echo $posts->id;?>)">删</a>
                         </td>
                     </tr>
                 <?php }?>

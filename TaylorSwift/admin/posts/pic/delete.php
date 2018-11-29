@@ -2,6 +2,7 @@
 <html>
 <head>
   	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   	<title>删除图片</title>
   	<style>
    		html{
@@ -9,8 +10,27 @@
     	}
       body{
         background:#FFFFFF url(../../../images/2.jpg) no-repeat fixed top;
-        background-size:1280px 830px;
+        background-size:100%;
         background-attachment:fixed;
+      }
+      p{
+        letter-spacing:16px;
+        margin-top:288px;
+        color:#FFFFFF;
+        font-size:60px;
+        font-weight:900
+      }
+      @media only screen and (max-width: 500px) {
+        body{
+            background-size:310%;
+        }
+        p{
+          letter-spacing:10px;
+          margin-top:188px;
+          color:#FFFFFF;
+          font-size:35px;
+          font-weight:900;
+        }
       }
   	</style>
 </head>
@@ -28,7 +48,7 @@
     if(!$query->execute()){
       echo '
         <div align="center">
-          <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">查找图片出错!</p>
+          <p style="text-shadow:4px 4px 16px #E61A00;">查找图片出错!</p>
         </div>';
     }else{
       while ($row = $query->fetch(PDO::FETCH_NUM)) {
@@ -40,12 +60,12 @@
       if(!$query->execute()){
         echo '
           <div align="center">
-            <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #E61A00;font-size:60px;font-weight:900">删除图片路径出错!</p>
+            <p style="text-shadow:4px 4px 16px #E61A00;">删除图片路径出错!</p>
           </div>';
       }else{
       echo '
         <div align="center">
-          <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #FFEE00;font-size:60px;font-weight:900">☺删除成功☺</p>
+          <p style="text-shadow:4px 4px 16px #FFEE00;">☺删除成功☺</p>
         </div>';
       }
     }

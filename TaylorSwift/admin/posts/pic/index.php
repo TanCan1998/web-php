@@ -30,7 +30,7 @@
         .main{
         	transition:2s ease;
         	border-radius:30px;
-        	box-shadow:4px 4px 14px #000000;
+        	box-shadow:0px 0px 5px #808080;
         	margin-top:40px;
         	margin-left:15%;
         	width:70%;

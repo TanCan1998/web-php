@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<?php
+session_start();
+if(isset($_SESSION['username'])){
+    $name=$_SESSION['username'];
+}
+else{
+    $name="游客".$_SESSION['visitor'];
+}
+?>
 <html>
     <head>
         <meta charset="UTF-8"/>
@@ -96,7 +105,7 @@
                 box-shadow:0px 0px 12px 2px #840B9C;
     		}
             .back a:hover,a:active{
-                box-shadow:0px 0px 4px 1px #840B9C inset;
+                box-shadow:0px 0px 4px 1px #840B9C inset,0px 0px 8px 0px #840B9C;
             }
             .button{
                 cursor:pointer;
@@ -137,10 +146,16 @@
                 color:#A61ABD;
                 box-shadow:0px 0px 13px #00FFFF inset,0px 0px 8px #00FFFF;
             }
+            #user{
+                font-size:78%;
+                font-style:italic;
+                color:#E61AA6;
+                text-shadow:1px 1px 16px #00FFFF; 
+            }
             @media only screen and (max-width: 500px) {
                 html{
-                    background:#FFFFFF url(../images/mbackground.jpg) no-repeat fixed top;
-                    background-size:120%;
+                    background:#FFFFFF url(../images/mbackground.png) no-repeat fixed top;
+                    background-size:105%;
                 }
                 body{
                     width:95%;
@@ -238,7 +253,7 @@
                 <div class="wow <?php echo $randValue; ?>" data-wow-duration="1.5s" data-wow-offset="10"  data-wow-iteration="1">
                 <div class="comment" style="box-shadow: 8px 8px  rgb(<?php echo rand(0,255).','.rand(0,255).','.rand(0,255); ?>)">
                     <li>
-                        <p><?php echo $comment->title;?></p>
+                        <p id="user">用户:<?php echo $comment->nickname;?></p>
                         <p style="letter-spacing:2px;font-weight:300"><?php echo $comment->body;?></p>
                         <span><?php echo date('Y-m-d H:i',strtotime($comment->created_at));?></span>
                     </li>
@@ -254,8 +269,8 @@
                     <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
                     <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
                     <input type='text' style='display:none'/>
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" style="width:60%;padding:4px;text-align:center;border-radius:15px;"/>
+                    <label for="nickname">Name</label>
+                    <input type="text" id="nickname" readonly="readonly" name="nickname" style="width:60%;padding:4px;text-align:center;border-radius:15px;" value="<?php echo $name; ?>"/>
                     <br>
                     <br>
                     <label for="body">Body</label>
@@ -276,12 +291,10 @@
             var text = document.getElementById("body");
             autoTextarea(text);
             function check(){
-                    var obj1 = document.getElementById("title");
-                    var str1 = document.form1.title.value;
-                    var obj2 = document.getElementById("body");
-                    var str2 = document.form1.body.value;
-                    if (str1.replace(/\s/g, "")==""&&str2.replace(/\s/g, "")==""){
-                      alert("标题和内容不能都为空!");
+                    var obj = document.getElementById("body");
+                    var str = document.form1.body.value;
+                    if (str.replace(/\s/g, "")==""){
+                      alert("内容不能为空!");
                     }else {
                       document.form1.submit();
                     }

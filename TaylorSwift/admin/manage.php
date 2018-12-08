@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>User</title>
+	<title>manager</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<style type="text/css">
 		html{
@@ -51,11 +51,11 @@
 	<?php 
 		session_start();  
    		//检测是否登录  
-		if(!isset($_SESSION['userid'])){  
+		if(!isset($_SESSION['managerid'])){  
     		exit('非法访问!');
 		} 
-		$userid = $_SESSION['userid'];  
-		$username = $_SESSION['username'];  
+		$managerid = $_SESSION['managerid'];  
+		$managername = $_SESSION['managername'];  
 	?>
 	<div align="center">
 		<ul>
@@ -65,8 +65,8 @@
 			<li><a title="管理图片(Pictures of Posts)" href="./posts/pic/">Pictures</a></li>
 			<li><a title="审核评论(Comment of Posts)" href="#about">Comments</a></li>
 		</ul>
-		<h1><?php echo '管理员：',$username; ?></h1>
-		<h2><?php echo 'ID：',$userid; ?></h2>
+		<h1><?php echo '管理员：',$managername; ?></h1>
+		<h2><?php echo 'ID：',$managerid; ?></h2>
 		<p><?php echo '<a href="login.php?action=logout">注销</a>';  ?></p>
 	</div>
 

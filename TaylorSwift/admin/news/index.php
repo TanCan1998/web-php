@@ -55,7 +55,7 @@
 	<?php 
 		session_start();  
    		//检测是否登录
-		if(!isset($_SESSION['userid'])){  
+		if(!isset($_SESSION['managerid'])){  
     		exit('非法访问!');
 		} 
 		require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';

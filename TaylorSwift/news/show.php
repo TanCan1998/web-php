@@ -27,7 +27,7 @@
 		h1{
             margin:0px;
             color:#006666;
-            text-shadow:4px 4px 16px #006666; 
+            text-shadow:4px 4px 16px #006666;
             font-size:40px;
         }
 		a:link,a:visited{
@@ -54,7 +54,7 @@
 			letter-spacing:1px;
 		}
 		.body{
-			width:70%; 
+			width:70%;
 			height:60%;
 			padding:10px;
 			text-indent:2em;
@@ -67,7 +67,7 @@
 		}
 		#scroll {
             position:fixed;
-            top:70%; 
+            top:70%;
             right:7%;
         }
         .scrollItem {
@@ -75,8 +75,8 @@
         	font-size:40px;
             width:50px;
         	color:#FFFFFF;
-            background-color:#00cc99; 
-            cursor:pointer; 
+            background-color:#00cc99;
+            cursor:pointer;
             text-align:center;
             margin:4px;
             padding:3px;
@@ -102,7 +102,7 @@
 				width:100px;
 			}
 	        #scroll {
-	            top:65%; 
+	            top:65%;
 	            right:1%;
 	        }
 	        .scrollItem{
@@ -119,45 +119,44 @@
 </head>
 <body>
 	<?php
-		require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
-		require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php';
-		$id    = $_GET['id'];
-		$sql   = 'select * from i_news where id = :id';
-		$query = $dbb->prepare($sql);
-		$query->bindValue(':id',$id,PDO::PARAM_INT);
-		$query->execute();
-		$news  = $query->fetchObject();
-	?>
+require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . './inc/scroll.php';
+$id    = $_GET['id'];
+$sql   = 'select * from i_news where id = :id';
+$query = $dbb->prepare($sql);
+$query->bindValue(':id', $id, PDO::PARAM_INT);
+$query->execute();
+$news = $query->fetchObject();
+?>
 	<div class="news" align="center">
 		<h1><?php echo $news->title; ?></h1>
 			<div class="time">
-				<p><?php echo date('Y-m-d H:i',strtotime($news->time)); ?></p>
+				<p><?php echo date('Y-m-d H:i', strtotime($news->time)); ?></p>
 			</div>
 			<div class="body">
 				<div class="content" style="text-align:left;text-indent:2em"><?php echo $news->body; ?></div>
 			</div>
 			<br>
 		<a href="./">返回</a>
-		<a href="../">首页</a>	
-		<?php 
-			$last=$id-1;
-			$next=$id+1;
-			$query->bindValue(':id',$last,PDO::PARAM_INT);
-			$query->execute();
-			$news=$query->fetchObject();
-			if($news!=null){
-				echo "<a href=\"show.php?id={$last}\" title=\"$news->title\">上一篇</a>";
-			}
-			$query->bindValue(':id',$next,PDO::PARAM_INT);
-			$query->execute();
-			$news=$query->fetchObject();
-			if($news!=null){
-				echo "<a href=\"show.php?id={$next}\" title=\"$news->title\">下一篇</a>";
-			}
-			else{
-				echo "<a href=\"#\">没有下一篇了╭(╯^╰)╮</a>";
-			}
-		 ?>
+		<a href="../">首页</a>
+		<?php
+$last = $id - 1;
+$next = $id + 1;
+$query->bindValue(':id', $last, PDO::PARAM_INT);
+$query->execute();
+$news = $query->fetchObject();
+if ($news != null) {
+    echo "<a href=\"show.php?id={$last}\" title=\"$news->title\">上一篇</a>";
+}
+$query->bindValue(':id', $next, PDO::PARAM_INT);
+$query->execute();
+$news = $query->fetchObject();
+if ($news != null) {
+    echo "<a href=\"show.php?id={$next}\" title=\"$news->title\">下一篇</a>";
+} else {
+    echo "<a href=\"#\">没有下一篇了╭(╯^╰)╮</a>";
+}
+?>
 	 </div>
 </body>
 </html>

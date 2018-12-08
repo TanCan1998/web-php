@@ -18,7 +18,7 @@
 		h1{
 			letter-spacing:2px;
             color:#BDE61A;
-            text-shadow:4px 4px 16px #3FAA46; 
+            text-shadow:4px 4px 16px #3FAA46;
             font-size:40px;
         }
 		ul{
@@ -65,18 +65,17 @@
 		<h1>霉闻趣事</h1>
 		<ul>
 			<?php
-				require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
-				$query = $dbb->prepare("select * from i_news order by id");
-				$query->execute();
-				while ($news = $query->fetchObject()) {
-			?>
-		    <li><a href="show.php?id=<?php echo $news->id; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $news->time;?>">
-		    	<?php echo $news->title;?>
+require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
+$query = $dbb->prepare("select * from i_news order by id");
+$query->execute();
+while ($news = $query->fetchObject()) {
+    ?>
+		    <li><a href="show.php?id=<?php echo $news->id; ?>" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis" title="时间<?php echo $news->time; ?>">
+		    	<?php echo $news->title; ?>
 		    </a></li>
 			<?php }?>
 		</ul>
 		</div>
 	<div class="home" align="center"><a href="../">首页</a></div>
-	
 </body>
 </html>

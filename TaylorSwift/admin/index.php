@@ -41,7 +41,7 @@
         <?php
             session_start();  
             //检测是否登录 
-            if(isset($_SESSION['userid'])){  
+            if(isset($_SESSION['managerid'])){  
                 header("location:./manage.php");
             }
         ?>
@@ -56,7 +56,7 @@
                         <img src="../images/name.png"/>
                     </div>
                     <div class="login-center-input">
-                        <input type="text" name="username" id="username" value="" placeholder="请输入管理员用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入管理员用户名'"/>
+                        <input type="text" name="managername" id="managername" value="" placeholder="请输入管理员用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入管理员用户名'"/>
                         <div class="login-center-input-text">
                             用户名
                         </div>

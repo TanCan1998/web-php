@@ -15,6 +15,12 @@
   ##        /,_|  |   /,_/   /
   ##           /,_/      '`-'
   -->
+ <?php
+session_start();
+if (!isset($_SESSION['visitor'])) {
+    $_SESSION['visitor'] = time() . "" . rand(0, 9);
+}
+?>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -38,7 +44,7 @@
 		  margin: 0;
 		  padding: 0;
 		}
-		html { 
+		html {
 			height:2100px;
 		}
 		body {
@@ -61,14 +67,14 @@
 		  width: 100%;
 		  height: 60px;
 		  line-height: 60px;
-		  background-color: #333;
+		  background-color: #333333;
 		  text-align: center;
 		  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 		  z-index: 9999;
 		}
 
 		.link {
-		  color: #fff;
+		  color: #ffffff;
 		  text-decoration: none;
 		  margin: 0 30px;
 		}
@@ -77,7 +83,7 @@
 		  text-align: center;
 		  margin-top: 50px;
 		  margin-bottom:50px;
-		  color: #fff;
+		  color: #ffffff;
 		}
 		/* Slide transitions */
 		.slideUp {
@@ -104,7 +110,7 @@
 		  -o-transition: transform .5s ease-out;
 		  transition: transform .5s ease-out;
 		}
-		.box1 img { 
+		.box1 img {
 			width: 120px;
 			border-radius:65px;
 			margin: 10px;
@@ -141,7 +147,6 @@
         }
 	</style>
 </head>
-
 <body>
 	<header class="header-navigation" id="header">
 	  <nav>
@@ -156,7 +161,7 @@
 		<div class="htmleaf-header">
 			<h1>TAYLOR SWIFT <span>Come morning light.You and I'll be safe and sound.</span></h1>
 			<div class="htmleaf-links">
-				<a class="htmleaf-icon icon-htmleaf-home-outline" href="#wrapper<?php echo rand(1,2); ?>" title="Home"><span> Home</span></a>
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="#wrapper<?php echo rand(1, 2); ?>" title="Home"><span> Home</span></a>
 				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="./admin/" title="Management" target="_blank"><span> Login</span></a>
 			</div>
 		</div>
@@ -179,7 +184,7 @@
 		        ], {
 		            effect: "slide",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
 		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
-		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
+		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)
 		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
 		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
 		            width: 700,
@@ -195,7 +200,7 @@
 		        ], {
 		            effect: "slide",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
 		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
-		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
+		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)
 		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
 		            useTransform: true,// 可选, 针对 slide 切换方式, 是否使用 transform 形式, 默认：false
 		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
@@ -227,7 +232,7 @@
 		        ], {
 		            effect: "fade",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
 		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
-		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
+		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)
 		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
 		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
 		            width: 700,
@@ -243,14 +248,14 @@
 		        ], {
 		            effect: "fade",   // 可选, 图片切换方式, slide(默认左右滑动), fade(淡入淡出), show(直接显示)
 		            dotAlign: "center", // 可选, 下方切换按钮的对齐方式, center(默认居中), left(居左), right(居右)
-		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)     
+		            dotShape: "line",  // 可选, 下方切换按钮的形状, circle(默认圆点), square(方框), line(线形)
 		            autoplay: 4000,    // 可选, 自动切换时间间隔, 单位：ms, 默认: 5000, 设置为 false 则不进行自动切换
 		            duration: 1200,    // 可选, 切换动画的过渡时间, 单位：ms, 默认：750, 只对 slide 和 fade 生效
 		            width: 800,
 		            height: 500
 		        });
 	        }
-	        
+
 	    })
 	</script>
 	<div id="wrapper2"></div>

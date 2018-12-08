@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php 
+session_start();
+if (!isset($_SESSION['visitor'])) {
+    $_SESSION['visitor'] = time() . "" . rand(0, 9);
+}
+$checkuser=isset($_SESSION['userid']);
+?>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -17,13 +24,13 @@
 		  	height:100%;
         }
 		body {
-			letter-spacing:1px; 
+			letter-spacing:1px;
 		}
 		h1{
 			letter-spacing:16px;
 			margin:24px;
 			color:#FFFFFF;
-			text-shadow:4px 4px 16px #E61AA6; 
+			text-shadow:4px 4px 0px #E61AA6; 
 			font-size:60px;
 		}
 		ul{
@@ -137,16 +144,34 @@
 			margin:10px;
         }
         ::selection {
-            background:#00FFFF;
+            background:#FFFF00;
             color:#ffffff;
         }
         ::-moz-selection {
-            background:#00FFFF;
+            background:#FFFF00;
             color:#ffffff;
         }
         ::-webkit-selection {
-            background:#00FFFF;
+            background:#FFFF00;
             color:#ffffff;
+        }
+        #welcome{
+        	color:rgb(240,240,240);
+        	position:fixed;
+        	right:10px;
+	        top:-12px;
+        }
+        #ssesion{
+			margin:0px;
+			padding:4px;
+			display:inline;
+        }
+        #user{
+        	color:#FFFF00;
+        }
+        #visitor{
+        	color:#FFFFFF;
+        	text-shadow:1px 1px 0px #00FFFF;
         }
         #<?php echo $_GET['catalog']; ?>{
 			color:#FFFFFF;
@@ -154,7 +179,8 @@
         }
         @media only screen and (max-width: 500px) {
         	h1{
-        		margin:4px;
+        		top:10px;
+        		margin-bottom:0px;
         	}
         	.catalog{
         		margin-left:2%;
@@ -191,10 +217,27 @@
 	        	margin:0px;
 	        	padding:6px;
 	        }
+	        #welcome{
+	        	position:absolute;
+	        	font-size:90%;
+	        	right:0px;
+	        }
+	        #visitor{
+	        	text-shadow:1px 1px 0px #840B9C;
+	        }
         }
  	</style>
 </head>
 <body>
+	<?php
+		//检查是否登录
+		if($checkuser){ ?>
+		<p id="welcome">你好用户:<span id="user"><?php echo $_SESSION['username']; ?></span><a id="ssesion" href="./login/Login.php?action=logout">注销</a></p>
+	<?php
+		}else{
+			echo "<p id=\"welcome\">游客<span id=\"visitor\">".$_SESSION['visitor']."</span>,请<a id=\"ssesion\" href=\"./login/\">登录</a></p>";
+		}
+	?>
 	<div align="center">
 		<h1>论坛</h1>
 		<div class="catalog" align="center">
@@ -264,16 +307,16 @@
 	<div class="button" align="center"><a href="../">首页</a></div>
 	<script>
 		function check(){
-                var obj = document.getElementById("t");
-                var str = document.form1.t.value;
-                if (str=="") {
-                  alert("不能为空");
-                  return false;
-                }
-                else {
-                	document.form1.submit();
-                }
+            var obj = document.getElementById("t");
+            var str = document.form1.t.value;
+            if (str=="") {
+              alert("不能为空");
+              return false;
             }
+            else {
+            	document.form1.submit();
+            }
+        }
 	</script>
 	<?php require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php'; ?>
 	<script opacity='0.7' zIndex="-1" count="100" type="text/javascript" src="../js/canvas-nest.min.js"></script>

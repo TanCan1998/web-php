@@ -45,7 +45,7 @@ if (!($_GET['action']=="logout"||isset($_POST['submit1']))) {
 }
 if(isset($_POST['submit1'])){
 
-$username = htmlspecialchars($_POST['username']);
+$managername = htmlspecialchars($_POST['managername']);
 
 //包含数据库连接文件
 
@@ -53,8 +53,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
 
 //检测用户名及密码是否正确
 
-$check_query = $dbb->prepare("select * from i_admin where username= :username");
-$check_query->bindValue(':username',$username,PDO::PARAM_STR);
+$check_query = $dbb->prepare("select * from i_admin where managername= :managername");
+$check_query->bindValue(':managername',$managername,PDO::PARAM_STR);
 $check_query->execute();
 $row = $check_query->fetch(PDO::FETCH_NUM);
 $hash = $row[2];
@@ -62,11 +62,11 @@ if (password_verify($_POST['password'], $hash)) {
 
     //登录成功
 
-    $_SESSION['username'] = $username;
+    $_SESSION['managername'] = $row[1];
 
-    $_SESSION['userid'] = $row[0];
+    $_SESSION['managerid'] = $row[0];
     
-    echo '<div align="center">',$username, '欢迎你！进入 <a href="manage.php">管理中心</a><br />';
+    echo '<div align="center">',$managername, '欢迎你！进入 <a href="manage.php">管理中心</a><br />';
 
     echo '点击此处 <a href="Login.php?action=logout">注销 登录！</a><br /></div>';
 
@@ -83,9 +83,9 @@ if (password_verify($_POST['password'], $hash)) {
 
 if ($_GET['action'] == "logout") {
 
-	unset($_SESSION['userid']);
+	unset($_SESSION['managerid']);
 
-    unset($_SESSION['username']);
+    unset($_SESSION['managername']);
 
     echo '<div align="center">注销成功！点击此处 <a href="./">登录</a><br>';
 

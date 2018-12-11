@@ -89,11 +89,11 @@ else{
                 border-radius:65px 65px 65px 65px;
                 box-shadow: 8px 8px  #E61AA6;
             }
-    		.back a:link,a:visited{
+    		.bbutton a:link,a:visited{
                 transition:0.5s ease;
     			color:#8A2BE2;
     			width:140px;
-                margin:26px;
+                margin:16px;
                 padding:10px;
     			background-color:#FFEC8B;
                 display:block;
@@ -104,7 +104,7 @@ else{
                 border-radius:25px;
                 box-shadow:0px 0px 12px 2px #840B9C;
     		}
-            .back a:hover,a:active{
+            .bbutton a:hover,a:active{
                 box-shadow:0px 0px 4px 1px #840B9C inset,0px 0px 8px 0px #840B9C;
             }
             .button{
@@ -279,11 +279,43 @@ else{
                 </form>
             </div>
             </div>
-            <div class="back">
-                <a href="./index.php?catalog=<?php echo $_GET['catalog']; ?>">
+            <div class="bbutton">
+                <a href="./index.php?catalog=<?php echo $_GET['catalog'],"&page=$_GET[page]"; ?>">
                     返回
                 </a>
             </div>
+<?php
+if(mb_substr($_GET['catalog'],4,1)!=1){
+    $catacheck='and catalog='.mb_substr($_GET['catalog'],4,1);
+}
+else{
+    $catacheck='';
+}
+$sql  = 'select id,title from i_posts where id < :id '.$catacheck.' order by id desc limit 1';
+$query = $dbb->prepare($sql);
+$query->bindValue(':id', $id, PDO::PARAM_INT);
+$query->execute();
+$post = $query->fetchObject();
+if($post!=null){
+    echo   "<div class=\"bbutton\">
+                <a href=\"?id=$post->id&catalog=$_GET[catalog]&page=$_GET[page]\" title=\"$post->title\">
+                    上一篇
+                </a>
+            </div>";
+}
+$sql  = 'select id,title from i_posts where id > :id '.$catacheck.' order by id asc limit 1';
+$query = $dbb->prepare($sql);
+$query->bindValue(':id', $id, PDO::PARAM_INT);
+$query->execute();
+$post = $query->fetchObject();
+if($post!=null){
+    echo   "<div class=\"bbutton\">
+                <a href=\"?id=$post->id&catalog=$_GET[catalog]&page=$_GET[page]\" title=\"$post->title\">
+                    下一篇
+                </a>
+            </div>";
+}
+?>
         </div>
         <script type="text/javascript" src="../js/canvas-nest.min.js"></script>
         <script type="text/javascript" src="../js/textinputheight.js"></script>

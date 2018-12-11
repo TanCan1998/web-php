@@ -58,6 +58,15 @@
                     color:#E9E4CD;
                     background-color:#99AA55;
                 }
+                ::selection {
+                    background:#d3d3d3;
+                }
+                ::-moz-selection {
+                    background:#d3d3d3;
+                }
+                ::-webkit-selection {
+                    background:#d3d3d3;
+                }
         	</style>
     </head>
     <body>

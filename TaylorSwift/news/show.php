@@ -139,20 +139,22 @@ $news = $query->fetchObject();
 			<br>
 		<a href="./">返回</a>
 		<a href="../">首页</a>
-		<?php
-$last = $id - 1;
-$next = $id + 1;
-$query->bindValue(':id', $last, PDO::PARAM_INT);
+<?php
+$sql  = 'select id,title from i_news where id < :id order by id desc limit 1';
+$query = $dbb->prepare($sql);
+$query->bindValue(':id', $id, PDO::PARAM_INT);
 $query->execute();
 $news = $query->fetchObject();
 if ($news != null) {
-    echo "<a href=\"show.php?id={$last}\" title=\"$news->title\">上一篇</a>";
+    echo "<a href=\"?id=$news->id\" title=\"$news->title\">上一篇</a>";
 }
-$query->bindValue(':id', $next, PDO::PARAM_INT);
+$sql  = 'select id,title from i_news where id > :id order by id asc limit 1';
+$query = $dbb->prepare($sql);
+$query->bindValue(':id', $id, PDO::PARAM_INT);
 $query->execute();
 $news = $query->fetchObject();
 if ($news != null) {
-    echo "<a href=\"show.php?id={$next}\" title=\"$news->title\">下一篇</a>";
+    echo "<a href=\"?id=$news->id\" title=\"$news->title\">下一篇</a>";
 } else {
     echo "<a href=\"#\">没有下一篇了╭(╯^╰)╮</a>";
 }

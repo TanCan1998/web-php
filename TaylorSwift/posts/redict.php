@@ -20,7 +20,7 @@
             }
             if($id!=-1){ ?>
                 <script>
-                    location.href='./show.php?id=<?php echo $id; ?>&catalog=<?php echo $_GET['catalog']; ?>';
+                    location.href='./show.php?id=<?php echo $id; ?>&catalog=<?php echo $_GET['catalog']; ?>&page=<?php echo $_GET['page']; ?>';
                 </script>
         <?php } 
             else{ ?>

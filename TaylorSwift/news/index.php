@@ -76,6 +76,6 @@ while ($news = $query->fetchObject()) {
 			<?php }?>
 		</ul>
 		</div>
-	<div class="home" align="center"><a href="../">首页</a></div>
+	<div class="home" align="center"><a href="javascript:;" onclick="window.open('../','swift');window.opener=null;window.open('','_self');window.close();">首页</a></div>
 </body>
 </html>

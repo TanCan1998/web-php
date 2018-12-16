@@ -33,7 +33,7 @@ else{
             ::-webkit-selection {
                 background:#d3d3d3;
             }
-    		ul{
+    		.myul{
                 list-style-type:none;
                 margin:0;
                 padding:0;
@@ -43,10 +43,15 @@ else{
                 margin: 8px;
                 color:#8A2BE2;
             }
-            span{
+            .myspan{
+                width:120px;
                 color:#8A2BE2;
                 font-size:12px;
                 font-style:italic;
+                display:inherit;
+                background-color:rgba(255,255,255,0.8);
+                border-radius:60px;
+                overflow:hidden;
             }
             input,textarea{
                 outline:none;
@@ -192,104 +197,120 @@ else{
             new WOW().init();
         </script>
     </head>
-    <body>
-        <?php 
-            require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
-            require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php';
-            $id = $_GET['id'];
-            $query=$dbb->prepare("select * from i_posts where id = :id");
-            $query->bindValue(':id',$id,PDO::PARAM_INT);
+<body>
+<?php 
+    require_once $_SERVER['DOCUMENT_ROOT'] . './inc/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'./inc/scroll.php';
+    $id = $_GET['id'];
+    $query=$dbb->prepare("select p.*,u.nickname from i_posts p,i_users u
+                            where p.id = :id and p.author_id = u.id");
+    $query->bindValue(':id',$id,PDO::PARAM_INT);
+    $query->execute();
+    $posts = $query->fetchObject();
+?>
+<div align="center">
+    <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
+    <div class="post" id="post">
+        <h1>帖子</h1>
+        <h2><?php echo $posts->title;?></h2>
+        <span class="myspan" style="margin:0px;font-size:14px;color:#E61AA6;font-style:italic">
+            <?php
+                switch ($posts->catalog) {
+                    case 2:
+                        echo "娱乐";
+                        break;
+                    case 3:
+                        echo "文史";
+                        break;
+                    case 4:
+                        echo "股票";
+                        break;
+                    case 5:
+                        echo "体育";
+                        break;
+                    case 6:
+                        echo "美食";
+                        break;
+                    case 7:
+                        echo "生活";
+                        break;
+                    case 8:
+                        echo "星座";
+                        break;
+                    case 9:
+                        echo "其他";
+                        break;
+                }; 
+            ?>
+        </span>
+        <span class="myspan" style="margin:0px;font-size:14px;color:#82acf2;font-style:italic">作者:<?php echo $posts->nickname; ?></span>
+        <span class="myspan"><?php echo date('Y-m-d H:i',strtotime($posts->created_at)); ?></span>
+        <div class="content" style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $posts->body ?></div>
+    </div>
+    </div>
+    <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
+    <ul class="myul">
+        <?php
+            require_once $_SERVER['DOCUMENT_ROOT'].'./inc/wow.php';
+            $query = $dbb->prepare("select * from i_comments where post_id = :post_id order by id");
+            $query->bindValue(':post_id',$id,PDO::PARAM_INT);
             $query->execute();
-            $posts = $query->fetchObject();
+            while($comment = $query->fetchObject()){
         ?>
-        <div align="center">
-            <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
-            <div class="post" id="post">
-                <h1>帖子</h1>
-                <h2><?php echo $posts->title;?></h2>
-                <p style="margin:0px;font-size:14px;color:#E61AA6;font-style:italic">
-                    <?php
-                        switch ($posts->catalog) {
-                            case 2:
-                                echo "娱乐";
-                                break;
-                            case 3:
-                                echo "文史";
-                                break;
-                            case 4:
-                                echo "股票";
-                                break;
-                            case 5:
-                                echo "体育";
-                                break;
-                            case 6:
-                                echo "美食";
-                                break;
-                            case 7:
-                                echo "生活";
-                                break;
-                            case 8:
-                                echo "星座";
-                                break;
-                            case 9:
-                                echo "其他";
-                                break;
-                        }; 
-                    ?>
-                </p>
-                <span><?php echo date('Y-m-d H:i',strtotime($posts->created_at)); ?></span>
-                <div class="content" style="text-align:left;text-indent:2em;letter-spacing:2px;font-weight:300"><?php echo $posts->body ?></div>
-            </div>
-            </div>
-            <div class="box1"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"><img src="../images/--.gif"></div>
-            <ul>
-                <?php
-                    require_once $_SERVER['DOCUMENT_ROOT'].'./inc/wow.php';
-                    $query = $dbb->prepare("select * from i_comments where post_id = :post_id order by id");
-                    $query->bindValue(':post_id',$id,PDO::PARAM_INT);
-                    $query->execute();
-                    while($comment = $query->fetchObject()){
-                ?>
-                <div class="wow <?php echo $randValue; ?>" data-wow-duration="1.5s" data-wow-offset="10"  data-wow-iteration="1">
-                <div class="comment" style="box-shadow: 8px 8px  rgb(<?php echo rand(0,255).','.rand(0,255).','.rand(0,255); ?>)">
-                    <li>
-                        <p id="user">用户:<?php echo $comment->nickname;?></p>
-                        <p style="letter-spacing:2px;font-weight:300"><?php echo $comment->body;?></p>
-                        <span><?php echo date('Y-m-d H:i',strtotime($comment->created_at));?></span>
-                    </li>
-                </div>
-                </div>
-                <br>
-                <?php } ?>
-            </ul>
-            <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
-            <div class="add" id="add">
-                <h2 style="color:#E61AA6;text-shadow:1px 1px 2px #00FFFF">添加评论</h2>
-                <form name="form1" method="post" action="update.php?catalog=<?php echo $_GET['catalog']; ?>">
-                    <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
-                    <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
-                    <input type='text' style='display:none'/>
-                    <label for="nickname">Name</label>
-                    <input type="text" id="nickname" readonly="readonly" name="nickname" style="width:60%;padding:4px;text-align:center;border-radius:15px;" value="<?php echo $name; ?>"/>
-                    <br>
-                    <br>
-                    <label for="body">Body</label>
-                    <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden;"></textarea>
-                    <div class="button" name="submit" onclick="check()">提交</div>
-                </form>
-            </div>
-            </div>
-            <div class="bbutton">
-                <a href="./index.php?catalog=<?php echo $_GET['catalog'],"&page=$_GET[page]"; ?>">
-                    返回
-                </a>
-            </div>
+        <div class="wow <?php echo $randValue; ?>" data-wow-duration="1.5s" data-wow-offset="10"  data-wow-iteration="1">
+        <div class="comment" style="box-shadow: 8px 8px  rgb(<?php echo rand(0,255).','.rand(0,255).','.rand(0,255); ?>)">
+            <li>
+                <p id="user">用户:<?php echo $comment->nickname;?></p>
+                <p style="letter-spacing:2px;font-weight:300"><?php echo $comment->body;?></p>
+                <span class="myspan"><?php echo date('Y-m-d H:i',strtotime($comment->created_at));?></span>
+            </li>
+        </div>
+        </div>
+        <br>
+        <?php } ?>
+    </ul>
+<?php if(!isset($_GET['from'])) {?>
+    <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-iteration="1">
+    <div class="add" id="add">
+        <h2 style="color:#E61AA6;text-shadow:1px 1px 2px #00FFFF">添加评论</h2>
+        <form name="form1" method="post" action="update.php?catalog=<?php echo $_GET['catalog']; ?>&page=<?php echo $_GET['page']; ?>">
+            <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
+            <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
+            <input type='text' style='display:none'/>
+            <label for="nickname">Name</label>
+            <input type="text" id="nickname" readonly="readonly" name="nickname" style="width:60%;padding:4px;text-align:center;border-radius:15px;cursor:default;" value="<?php echo $name; ?>"/>
+            <br>
+            <br>
+            <label for="body">Body</label>
+            <textarea id="body" rows="4" name="body" style="width:70%;resize:none;padding:12px;border-radius:35px;overflow:hidden;"></textarea>
+            <div class="button" name="submit" onclick="check()">提交</div>
+        </form>
+    </div>
+    </div>
+<?php } ?>
+    <div class="bbutton">
+<?php
+if(isset($_GET['from'])) {$backurl="./myposts/";$urlcheck='&from=1';}
+else {$backurl="./index.php?catalog=$_GET[catalog]&page=$_GET[page]";$urlcheck='';}
+?>
+        <a href="<?php echo $backurl; ?>">
+            返回
+        </a>
+    </div>
 <?php
 if(mb_substr($_GET['catalog'],4,1)!=1){
-    $catacheck='and catalog='.mb_substr($_GET['catalog'],4,1);
+    if(!isset($_GET['from'])){
+        $catacheck='and catalog='.mb_substr($_GET['catalog'],4,1);
+    }else{
+        $catacheck='and author_id='.$_SESSION['userid'];
+    }
 }
 else{
-    $catacheck='';
+    if(!isset($_GET['from'])){
+        $catacheck='';
+    }else{
+        $catacheck='and author_id='.$_SESSION['userid'];
+    }
 }
 $sql  = 'select id,title from i_posts where id < :id '.$catacheck.' order by id desc limit 1';
 $query = $dbb->prepare($sql);
@@ -297,11 +318,11 @@ $query->bindValue(':id', $id, PDO::PARAM_INT);
 $query->execute();
 $post = $query->fetchObject();
 if($post!=null){
-    echo   "<div class=\"bbutton\">
-                <a href=\"?id=$post->id&catalog=$_GET[catalog]&page=$_GET[page]\" title=\"$post->title\">
-                    上一篇
-                </a>
-            </div>";
+echo   "<div class=\"bbutton\">
+        <a href=\"?id=$post->id&catalog=$_GET[catalog]&page=$_GET[page]$urlcheck\" title=\"$post->title\">
+            上一篇
+        </a>
+    </div>";
 }
 $sql  = 'select id,title from i_posts where id > :id '.$catacheck.' order by id asc limit 1';
 $query = $dbb->prepare($sql);
@@ -309,63 +330,62 @@ $query->bindValue(':id', $id, PDO::PARAM_INT);
 $query->execute();
 $post = $query->fetchObject();
 if($post!=null){
-    echo   "<div class=\"bbutton\">
-                <a href=\"?id=$post->id&catalog=$_GET[catalog]&page=$_GET[page]\" title=\"$post->title\">
-                    下一篇
-                </a>
-            </div>";
+echo   "<div class=\"bbutton\">
+        <a href=\"?id=$post->id&catalog=$_GET[catalog]&page=$_GET[page]$urlcheck\" title=\"$post->title\">
+            下一篇
+        </a>
+    </div>";
 }
 ?>
-        </div>
-        <script type="text/javascript" src="../js/canvas-nest.min.js"></script>
-        <script type="text/javascript" src="../js/textinputheight.js"></script>
-        <script>
-            var text = document.getElementById("body");
-            autoTextarea(text);
-            function check(){
-                    var obj = document.getElementById("body");
-                    var str = document.form1.body.value;
-                    if (str.replace(/\s/g, "")==""){
-                      alert("内容不能为空!");
-                    }else {
-                      document.form1.submit();
-                    }
+</div>
+<script type="text/javascript" src="../js/canvas-nest.min.js"></script>
+<script type="text/javascript" src="../js/textinputheight.js"></script>
+<script>
+    var text = document.getElementById("body");
+    autoTextarea(text);
+    function check(){
+            var obj = document.getElementById("body");
+            var str = document.form1.body.value;
+            if (str.replace(/\s/g, "")==""){
+              alert("内容不能为空!");
+            }else {
+              document.form1.submit();
             }
-        </script>
-        <script>
-            <?php 
-                $query=$dbb->prepare("select count(*) from i_pic where post_id=:id");
-                $query->bindValue(':id',$id,PDO::PARAM_STR);
-                $query->execute();
-                $rows = $query->fetch();
-                $rowCount = $rows[0];
-                if($rowCount>0){
-                    echo "window.onload = function(){
-                        var picArr = new Array();";
-                    $query=$dbb->prepare("select * from i_pic where post_id= :id");
-                    $query->bindValue(':id',$id,PDO::PARAM_STR);
-                    $query->execute();
-                    while ($row = $query->fetch(PDO::FETCH_NUM)) {
-                        echo "picArr.push(\"$row[1]\");";
-                    }
-                    echo   "var i=0;
-                            var len=picArr.length;
-                            $(\"#post\").css(\"background\",\"#ffffff url(./pic/\"+picArr[i%len]+\") no-repeat center\");
-                            $(\"#post\").css(\"background-size\",\"120%\");
-                            $(\"#post\").css(\"color\",\"#ffffff\");
-                            $(\"#post\").css(\"text-shadow\",\"2px 2px 6px #000000,0px 0px 2px #ffffff\");
-                            i++;
-                            function time(){
-                                $(\"#post\").css(\"background\",\"#ffffff url(./pic/\"+picArr[i%len]+\") no-repeat center\");
-                                $(\"#post\").css(\"background-size\",\"120%\");
-                                $(\"#post\").css(\"color\",\"#ffffff\");
-                                $(\"#post\").css(\"text-shadow\",\"2px 2px 6px #000000,0px 0px 2px #ffffff\");
-                                i++; 
-                            }
-                            setInterval(time,6000);}";
-                }
-            ?>
-            //setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
-        </script>
-    </body>
+    }
+</script>
+<?php 
+$query=$dbb->prepare("select count(*) from i_pic where post_id=:id");
+$query->bindValue(':id',$id,PDO::PARAM_STR);
+$query->execute();
+$rows = $query->fetch();
+$rowCount = $rows[0];
+if($rowCount>0){
+    echo "<script>
+    window.onload = function(){
+    var picArr = new Array();";
+    $query=$dbb->prepare("select * from i_pic where post_id= :id");
+    $query->bindValue(':id',$id,PDO::PARAM_STR);
+    $query->execute();
+    while ($row = $query->fetch(PDO::FETCH_NUM)) {
+        echo "picArr.push(\"$row[1]\");";
+    }
+    echo   
+    "var i=0;
+    var len=picArr.length;
+    $(\"#post\").css(\"background\",\"#ffffff url(./pic/\"+picArr[i%len]+\") no-repeat center\");
+    $(\"#post\").css(\"background-size\",\"120%\");
+    $(\"#post\").css(\"color\",\"#ffffff\");
+    $(\"#post\").css(\"text-shadow\",\"0px 0px 1px #000000,0px 0px 2px #ffffff\");
+    i++;
+    function time(){
+        $(\"#post\").css(\"background\",\"#ffffff url(./pic/\"+picArr[i%len]+\") no-repeat center\");
+        i++; 
+    }
+    setInterval(time,6000);}
+    </script>
+    ";//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
+}
+?>
+
+</body>
 </html>

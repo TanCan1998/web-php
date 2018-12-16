@@ -138,7 +138,7 @@ $news = $query->fetchObject();
 			</div>
 			<br>
 		<a href="./">返回</a>
-		<a href="../">首页</a>
+		<a href="javascript:;" onclick="window.open('../','swift');window.opener=null;window.open('','_self');window.close();">首页</a>
 <?php
 $sql  = 'select id,title from i_news where id < :id order by id desc limit 1';
 $query = $dbb->prepare($sql);

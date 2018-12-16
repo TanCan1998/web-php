@@ -149,10 +149,10 @@ if (!isset($_SESSION['visitor'])) {
     <header class="header-navigation" id="header">
       <nav>
        <a class="link" href="#" title="Black history">霉的“黑历史”</a>
-       <a class="link" href="./news/" title="News" target="_blank">霉闻趣事</a>
-       <a class="link" href="./pictures/" title="Pictures" target="blank">美霉图</a>
-       <a class="link" href="https://www.taylorswift.com" title="Mall" target="_blank">商城图鉴</a>
-       <a class="link" href="./posts/index.php?catalog=cata1" title="Posts" target="_blank">交流论坛</a>
+       <a class="link" href="javascript:;" title="News" onclick="window.open('./news/','news');">霉闻趣事</a>
+       <a class="link" href="javascript:;" title="Pictures" onclick="window.open('./pictures/','pictures');">美霉图</a>
+       <a class="link" href="javascript:;" title="Mall" onclick="window.open('https://www.taylorswift.com','Mall');">官方商城</a>
+       <a class="link" href="javascript:;" title="Posts" onclick="window.open('./posts/','posts');">交流论坛</a>
       </nav>
     </header>
     <div class="htmleaf-container">
@@ -273,6 +273,7 @@ if (!isset($_SESSION['visitor'])) {
             }
             new_scroll_position = last_scroll_position;
         });
+        window.name="swift";
     </script>
     <script>
         var ua = navigator.userAgent;

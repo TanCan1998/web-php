@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>
-        用户登陆
-    </title>
-    <link rel="stylesheet" type="text/css" href="../../css/styles.css"/>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>
+    用户登陆
+</title>
+<link rel="stylesheet" type="text/css" href="../../css/styles.css"/>
+<script type="text/javascript">
+    window.onload=function(){
+        var obt1=document.getElementById("toregister-button");
+        var obt2=document.getElementById("tologin-button");
+        var odiv1=document.getElementById("login");
+        var odiv2=document.getElementById("register");
+        obt1.onclick=function(){
+            event.preventDefault();
+            $('.form1').fadeOut(500);
+            setTimeout(function(){$('.form2').fadeIn(1000);},"600");
+        }
+        obt2.onclick=function(){
+            event.preventDefault();
+            $('.form2').fadeOut(500);
+            setTimeout(function(){$('.form1').fadeIn(1000);},"600");
+        }
+    }
+</script>
 </head>
 <body>
     <div class="wrapper">
@@ -15,14 +33,28 @@
             <h1>
                 Welcome
             </h1>
-            <form class="form" name="form1" method="post" action="Login.php?action=1">
-                <input type="text" id="username"  placeholder="Username" name="username"/>
-                <input type="password" id="password" placeholder="Password" name="password"/>
+            <form class="form1" name="form1" id="login" method="post" action="Login.php?action=1" style="display:block">
+                <input type="text" id="username1"  placeholder="Username" name="username"/>
+                <input type="password" id="password1" placeholder="Password" name="password"/>
                 <button type="submit" id="login-button" onclick="check()">
                     Login
                 </button>
-                <button id="register-button" onclick="register()">
+                <button id="toregister-button">
+                   To Register
+                </button>
+                <button id="cancel-button" onclick="cancel()">
+                    Cancel
+                </button>
+            </form>
+            <form class="form2" name="form2" id="register" method="post" action="Login.php?action=register" style="display:none">
+                <input type="text" id="nickname"  placeholder="Nickname" name="nickname"/>
+                <input type="text" id="username2"  placeholder="Username" name="username"/>
+                <input type="password" id="password2" placeholder="Password" name="password"/>
+                <button type="submit" id="login-button" onclick="check()">
                     Register
+                </button>
+                <button id="tologin-button">
+                   To Login
                 </button>
                 <button id="cancel-button" onclick="cancel()">
                     Cancel
@@ -30,78 +62,57 @@
             </form>
         </div>
         <ul class="bg-bubbles">
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
-            <li>
-            </li>
+            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
         </ul>
     </div>
     <script src="../../js/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script>
     function check(){
-            var obj = document.getElementById("password");
-            var str = document.form1.password.value;
-            var str1 = document.form1.username.value;
-            if (str1.replace(/\s/g, "")=="") {
-              alert("用户名不能为空");
-            }
-            else if (str=="") {
-              alert("密码不能为空");
-            }
-            else if (str.indexOf(" ") >=0)
-              alert("输入有空格！");
-            else if (obj.value = str.replace(/\s/g, ""),str.length<4||str.length>20) {
-              alert("请输入4-1密码");
-            }
-            else {
-                event.preventDefault();
-                $('form').fadeOut(500);
-                $('.wrapper').addClass('form-success');
-                setTimeout(function(){document.form1.submit();},"1300");
-            }
+        event.preventDefault();
+        if(document.getElementById("login").style.display=="block"){
+            var obj = document.getElementById("password1");
+            var str = document.getElementById("password1").value;
+            var str1 = document.getElementById("username1").value;
+            var form = document.form1;                
+        }
+        else{
+            var obj = document.getElementById("password2");
+            var str = document.getElementById("password2").value;
+            var str1 = document.getElementById("username2").value;
+            var str2 = document.getElementById("nickname").value;
+            var form = document.form2; 
+        }
+        if (str1.replace(/\s/g, "")=="") {
+          alert("用户名不能为空");
+        }
+        else if (str=="") {
+          alert("密码不能为空");
+        }
+        else if (str.indexOf(" ") >=0||str1.indexOf(" ") >=0)
+          alert("输入有空格！");
+        else if (str1.length<3) {
+          alert("请输入大于3个字符的用户名");
+        }
+        else if (obj.value = str.replace(/\s/g, ""),str.length<4||str.length>10) {
+          alert("请输入4-10密码");
+        }
+        else if(document.getElementById("login").style.display=="none"
+            &&str2.replace(/\s/g, "")==""){
+            alert("昵称不能为空");
+        }
+        else if(document.getElementById("login").style.display=="none"
+            &&str2.length>8){
+            alert("昵称不能超过8个字符");
+        }
+        else {
+            $(form).fadeOut(500);
+            $('.wrapper').addClass('form-success');
+            setTimeout(function(){form.submit();},"1300");
+        }
     }
     function cancel(){
         event.preventDefault();
-        window.location.href="../index.php?catalog=cata1";
-    }
-    function register(){
-        event.preventDefault();
+        window.location.href="../";
     }
     </script>
 </body>

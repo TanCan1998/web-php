@@ -6,9 +6,8 @@ if (!isset($_SESSION['visitor'])) {
 }
 $checkuser=isset($_SESSION['userid']);
 require_once $_SERVER['DOCUMENT_ROOT'].'../inc/pager.func.php';
-if (!isset($_GET['page'])) {
-    $_GET['page']=1;
-}
+if (!isset($_GET['page'])) $_GET['page']=1;
+if(!isset($_GET['catalog'])) $_GET['catalog']="cata1";
 ?>
 <html>
 <head>
@@ -195,7 +194,16 @@ if (!isset($_GET['page'])) {
             display:inline;
         }
         #user{
+            font-size:15px;
+            margin:0px;
+            padding:4px;
+            cursor:pointer;
+            background-color:#ffffff;
             color:#4169E1;
+            box-shadow:0px 0px 4px #840B9C;
+        }
+        #user:hover{
+            box-shadow:0px 0px 8px #840B9C;
         }
         #visitor{
             color:#E61AA6;
@@ -213,25 +221,25 @@ if (!isset($_GET['page'])) {
         }
         @media only screen and (max-width: 500px) {
             h1{
-                top:10px;
+                margin-top:30px;
                 margin-bottom:0px;
             }
             .catalog{
-                margin-left:2%;
-                width:100%;
+                margin-left:0px;
+                width:85%;
             }
             .catalog ul{
-                width:98%;
+                margin:0px;
+                padding:12px;
+                width:100%;
+                display: inline-flex;
             }
             .catalog li{
                 padding:2px;
-                width:120%;
-                margin-right:2px;
+                width:90%;
             }
             .catalog a{
-                width: 100%;
-                margin: 1px;
-                padding: 1px;
+                width: 90%;
             }
             #scroll {
                 top:65%;
@@ -254,7 +262,18 @@ if (!isset($_GET['page'])) {
             #welcome{
                 position:absolute;
                 font-size:90%;
-                right:0px;
+                right:8px;
+            }
+            #pager{
+                box-shadow:0px 0px 1px #000000;
+                position:static;
+                display:inline-block;
+                margin:0px;
+                margin-top:20px;
+                background-color:#FFFFFF;
+                color:#000000;
+                padding:6px;
+                border-radius:18px;
             }
             #visitor{
                 background-color:#FFFF00;
@@ -268,7 +287,7 @@ if (!isset($_GET['page'])) {
     <?php
         //检查是否登录
         if($checkuser){ ?>
-        <p id="welcome">你好用户:<span id="user"><?php echo $_SESSION['username']; ?></span>|<a id="ssesion" href="./login/Login.php?action=logout">注销</a></p>
+        <p id="welcome">你好用户:<a href="./myposts/" title="我的帖子"><button id="user"><?php echo $_SESSION['username']; ?></button></a>|<a id="ssesion" href="./login/Login.php?action=logout">注销</a></p>
     <?php
         }else{
             echo "<p id=\"welcome\">游客<span id=\"visitor\">".$_SESSION['visitor']."</span>|<a id=\"ssesion\" href=\"./login/\">登录</a></p>";
@@ -289,7 +308,7 @@ if (!isset($_GET['page'])) {
                 <div class="wow flipInX" data-wow-duration="1s" data-wow-offset="10" data-wow-delay="0.8s" data-wow-iteration="1"><li><a class="menu" href="?catalog=cata9" id="cata9">其他</a></li></div>
             </ul>
         </div>
-        <form name="form1" action="redict.php?catalog=<?php echo $_GET['catalog']; ?>" method="post">
+        <form name="form1" action="redict.php?catalog=<?php echo $_GET['catalog']; ?>&page=<?php echo $_GET['page']; ?>" method="post">
             <div class="search">
             <label for="title" style="color:#E61AA6;font-style:italic">搜索Title</label>
             <input id="t" name="title" class="awesomplete" list="mylist" autocomplete="off"/>
@@ -338,9 +357,10 @@ if (!isset($_GET['page'])) {
             ?>
         </ul>
     <div class="button" align="center"><a href="./new.php?catalog=<?php echo $catalog;?>&cata=<?php echo $_GET['catalog'];?>">发布</a></div>
-    <div class="button" align="center"><a href="../">首页</a></div>
-    </div>
+    <div class="button" align="center"><a href="javascript:;" onclick="window.open('../','swift');window.opener=null;window.open('','_self');window.close();">首页</a></div>
+    <br>
     <?php echo $page_arr['nav_html']; ?>
+    </div>
     <script>
         function check(){
             var obj = document.getElementById("t");

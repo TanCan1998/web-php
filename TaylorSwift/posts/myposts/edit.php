@@ -1,7 +1,7 @@
 <?php 
     session_start();  
     //检测是否登录  
-    if(!isset($_SESSION['managerid'])){  
+    if(!isset($_SESSION['userid'])){  
         exit('非法访问!');
     }
 ?>

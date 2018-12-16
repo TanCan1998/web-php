@@ -89,8 +89,9 @@ if ($_GET['action'] == "logout") {
 
     echo '<div align="center">注销成功！点击此处 <a href="./">登录</a><br>';
 
-    echo '点击此处返回<a href="../">首页</a></div>';
-
+    echo <<<EOT
+    点击此处返回<a href="javascript:;" onclick="window.open('../','swift');window.opener=null;window.open('','_self');window.close();">首页</a></div>
+EOT;
     exit;
 
 }

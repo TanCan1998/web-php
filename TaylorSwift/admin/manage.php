@@ -59,7 +59,7 @@
 	?>
 	<div align="center">
 		<ul>
-			<li><a title="首页" href="../">Home</a></li>
+			<li><a title="首页" href="javascript:;" onclick="window.open('../','swift');window.opener=null;window.open('','_self');window.close();">Home</a></li>
 			<li><a title="编辑新闻" href="./news/">News</a></li>
 			<li><a title="编辑帖子" href="./posts/">Posts</a></li>
 			<li><a title="管理图片(Pictures of Posts)" href="./posts/pic/">Pictures</a></li>

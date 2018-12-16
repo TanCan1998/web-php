@@ -28,6 +28,13 @@ function pager_query($sql,&$nav_html,$page_current=1, $page_size=7){
 	$query_str = "{$_SERVER['SCRIPT_NAME']}?" ;
 	//as $_GET or $_POST
 	$params = $_REQUEST;
+	if ($page_amount==0) {
+		$page_amount=1;
+		$page_first=1;
+		$page_previous=1;
+		$page_next=1;
+		$page_last=1;
+	}
 	$params['page'] = 1;
 	$page_first_q =  $query_str . http_build_query($params);
 	$params['page'] = $page_previous;
@@ -36,20 +43,17 @@ function pager_query($sql,&$nav_html,$page_current=1, $page_size=7){
 	$page_next_q =  $query_str . http_build_query($params);
 	$params['page'] = $page_amount;
 	$page_last_q =  $query_str . http_build_query($params);
-	if ($page_amount==0) {
-		$page_amount=1;
-	}
-	$nav_html = "
-  <div id=\"pager\"> 
+	$nav_html = <<<EOT
+  <div id="pager">
     <span>当前 第 $page_current 页 </span>
     <span>总共 $page_amount 页</span> 
     <br>
-    <a href=\"$page_first_q\" style=\"text-decoration:none;\">首页</a>
-    <a href=\"$page_previous_q\" style=\"text-decoration:none;\">上一页</a>
-    <a href=\"$page_next_q\" style=\"text-decoration:none;\">下一页</a>    
-    <a href=\"$page_last_q\" style=\"text-decoration:none;\">末页</a>
+    <a href="$page_first_q" style="text-decoration:none;">首页</a>
+    <a href="$page_previous_q" style="text-decoration:none;">上一页</a>
+    <a href="$page_next_q" style="text-decoration:none;">下一页</a>    
+    <a href="$page_last_q" style="text-decoration:none;">末页</a>
   </div>
-";
-	return array("nav_html"=>$nav_html,"sql"=>$sql, "check"=>$check, "page_current"=>$page_current);
+EOT;
+	return array("nav_html"=>$nav_html,"sql"=>$sql, "page_current"=>$page_current);
 }
 ?>

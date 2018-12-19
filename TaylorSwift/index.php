@@ -148,7 +148,7 @@ if (!isset($_SESSION['visitor'])) {
 <body>
     <header class="header-navigation" id="header">
       <nav>
-       <a class="link" href="#" title="Black history">霉的“黑历史”</a>
+       <!-- <a class="link" href="#" title="Black history">霉的“黑历史”</a> -->
        <a class="link" href="javascript:;" title="News" onclick="window.open('./news/','news');">霉闻趣事</a>
        <a class="link" href="javascript:;" title="Pictures" onclick="window.open('./pictures/','pictures');">美霉图</a>
        <a class="link" href="javascript:;" title="Mall" onclick="window.open('https://www.taylorswift.com','Mall');">官方商城</a>

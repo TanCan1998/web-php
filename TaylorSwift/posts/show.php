@@ -262,7 +262,7 @@ else{
             <li>
                 <p id="user">用户:<?php echo $comment->nickname;?></p>
                 <p style="letter-spacing:2px;font-weight:300"><?php echo $comment->body;?></p>
-                <span class="myspan"><?php echo date('Y-m-d H:i',strtotime($comment->created_at));?></span>
+                <span class="myspan"><?php echo $comment->created_at;?></span>
             </li>
         </div>
         </div>
@@ -275,7 +275,7 @@ else{
         <h2 style="color:#E61AA6;text-shadow:1px 1px 2px #00FFFF">添加评论</h2>
         <form name="form1" method="post" action="update.php?catalog=<?php echo $_GET['catalog']; ?>&page=<?php echo $_GET['page']; ?>">
             <input type="hidden" name="post_id" value = "<?php echo $id; ?>"/>
-            <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s',time()); ?>"/>
+            <input type="hidden" name="time" value = "<?php echo date('Y-m-d H:i:s'); ?>"/>
             <input type='text' style='display:none'/>
             <label for="nickname">Name</label>
             <input type="text" id="nickname" readonly="readonly" name="nickname" style="width:60%;padding:4px;text-align:center;border-radius:15px;cursor:default;" value="<?php echo $name; ?>"/>

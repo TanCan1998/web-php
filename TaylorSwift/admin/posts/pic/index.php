@@ -138,9 +138,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php 
+				<?php
+                    if(!isset($_GET['page'])) $_GET['page']=1;
 					require_once $_SERVER['DOCUMENT_ROOT'].'./inc/db.php';
-					$query=$dbb->prepare("select path,title,i_pic.id from i_pic,i_posts where post_id=i_posts.id order by post_id,i_pic.id desc");
+                    require_once $_SERVER['DOCUMENT_ROOT'].'./inc/pager.func.php';
+                    $sql="select path,title,i_pic.id from i_pic,i_posts where post_id=i_posts.id order by post_id,i_pic.id desc";
+                    $page_arr=pager_query($sql,$nav_html,$_GET['page'],5);
+					$query=$dbb->prepare($page_arr['sql']);
 					if(!$query->execute()){
 						echo '<div align="center">
                 <p style="letter-spacing:16px;margin-top:288px;color:#FFFFFF;text-shadow:4px 4px 16px #000000;font-size:60px;font-weight:900">出错！</p>
@@ -164,6 +168,7 @@
 				?>
 			</tbody>
 		</table>
+        <?php echo $page_arr['nav_html']; ?>
     </div>
     <div class="back" onclick="location='../../manage.php'">返回</div>
 	<script type="text/javascript">
